@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Stack Overflow-lite </title>
+	<meta name="description" content="StackOverflow-lite is a platform where people can ask questions and provide answers.">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="images/favicon/favicon.png">
+	<link rel="stylesheet" href="./stylesheets/style.css">
+<!--	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu"> -->
+</head>
+<body>
+	<header class="home">
+		<div class="logo">
+			<a href="../index.html"><p class="home">StackOverflow<small>-lite</small></p></a>
+		</div>
+
+		<nav class="top-link right margin-top-25">
+			<a href="home.html" class="inherit">Home</a>
+			<a href="profile-page.html" class="inherit"><b>coco-maiko</b></a>
+			<a href="signin.html" class="inherit">logout</a>
+		</nav>
+
+	</header>
+
+	<div class="row-container home">
+		<div class="sd-margin-12 d-margin-1">
+		</div>
+
+		<div class="sd-margin-12 d-margin-7 margin-top-15">
+			<div class="row-container" id="root">
+				<div class="card center" id="home-notif">
+					<button class="inherit right close" onclick="closeNotif()" >x</button>
+					<h3 class="">Updates to our Privacy Policy</h3>
+					<p class="">We have updated our privacy policy. Learn more <a href="not-found.html" class="inherit">here</a>.</p>
+				</div>
+
+				<div class="card margin-top-15">
+					<h5>Coco-Maiko <small>(you)</small></h5>
+					<form class="question-form">
+						<input type="text" name="question-input" placeholder="What is your question?">
+						<textarea placeholder="Description (optional ie. You don't have to.)"></textarea>
+						<div class="btn-group">
+							<button class="btn primary question-btn">Ask Question</button>
+							<input type="reset" value="Cancel">
+						</div>
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="sd-margin-12 d-margin-4">
+			<h3 class="side-title">Questions with Most Answers</h3>
+			<div>
+				<ul class="list">
+					<li><a href="question.html">Why do people Suffer in Nigeria?</a></li>
+					<li><a href="question.html">lorem ipsum?</a></li>
+					<li><a href="question.html">do people Suffer?</a></li>
+					<li><a href="question.html">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</a></li>
+					<li><a href="question.html">dolor sit amet, consectetur adipisicing elit?</a></li>
+				</ul>
+			</div>
+		</div>
+
+
+	</div><!--End of Row Container -->
+
+	<footer class="home center">
+		<p class="sitemap margin-bottom-30"><small><a href="home.html" class="inherit">Home</a> | <a href="question.html" class="inherit">Question page</a> | <a href="question-signin.html" class="inherit">Question page 2</a> | <a href="profile-page.html" class="inherit">Profile page</a> | <a href="signup.html" class="inherit">Signup page</a> | <a href="signin.html" class="inherit">Signin page</a></small></p>
+		<p><small>Created by Theodore Okafor as part of Andela Developer Challenge</small></p>
+	</footer>
+	<script src="javascript/custom.js"></script>
+	<script src="javascript/fetchAllQuestions.js"></script>
+	<script>
+		window.addEventListener('load', fetchAllQuestions);
+	</script>
+</body>
+</html>
