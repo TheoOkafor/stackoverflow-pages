@@ -59,6 +59,7 @@ const passwordMatch = () => {
     matchDisplay.innerHTML = 'Passwords do not match!';
   } else {
     signupBtn.disabled = false;
+    matchDisplay.innerHTML = null;
   }
 };
 

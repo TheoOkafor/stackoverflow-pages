@@ -30,11 +30,7 @@
 		<div class="sd-margin-12 d-margin-7">
 			<div class="row-container">
 				<div class="question">
-					<h1>Why do people Suffer in Nigeria?</h1>
-					<p class="question-desc">
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua.
-					</p>
+					
 				</div>
 
 				<div class="answer-card">
@@ -189,7 +185,7 @@
 			</div>
 		</div>
 
-		<div class="sd-margin-12 d-margin-4">
+		<div class="sd-margin-12 d-margin-4 question-extra">
 			<div class="card margin-top-30">
 				<ul class="list list-unstyled">
 					<li>Time asked: <b>08:07am, October 2, 2018</b></li>
@@ -218,6 +214,10 @@
 		<p class="sitemap margin-bottom-30"><small><a href="home.html" class="inherit">Home</a> | <a href="question.html" class="inherit">Question page</a> | <a href="question-signin.html" class="inherit">Question page 2</a> | <a href="profile-page.html" class="inherit">Profile page</a> | <a href="signup.html" class="inherit">Signup page</a> | <a href="signin.html" class="inherit">Signin page</a></p>
 		<p><small>Created by Theodore Okafor as part of Andela Developer Challenge</small></p>
 	</footer>
-	<script src="javascript/build/custom.bundle.js"></script>
+	<script src="javascript/custom.js"></script>
+	<script src="javascript/fetchQuestion.js"></script>
+	<script>
+		window.addEventListener('load', fetchQuestion);
+	</script>
 </body>
 </html>

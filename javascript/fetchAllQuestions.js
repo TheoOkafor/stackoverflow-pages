@@ -12,6 +12,7 @@ const fetchAllQuestions = () => {
 			let questions = result.data[0];
 			let answers = result.data[1];
 			console.log(result);
+
 			//Reverse the array before mapping {Credit: AdamCooper86 - StackOverflow}
 			questions.slice(0).reverse().map( question => {
 				let i = 0;
@@ -35,7 +36,7 @@ const fetchAllQuestions = () => {
 						username = currAnswers[randomIndex].username;
 					}
 					else {
-						answer = null;
+						answer = 'No answers yet';
 						time = null;
 						username = null;
 					}
@@ -43,18 +44,17 @@ const fetchAllQuestions = () => {
 				let card = document.createElement('div');
 				card.setAttribute('class', 'card');
 				const demo = `
-
-						<h3 class="qs-title"><a href="${window.location.href}/${question.id}" class="question">${question.title}</a></h3>
-						<div>
-							<h5 class="person-answer">${username}
-								<br>
-								<small>Answered <span>${time}</span></small>
-							</h5>
-						</div>
-						<p class="answer">
-							${answer}
-						</p>
-						<h6>Answers: <span>${numAnswers}</span></h6>
+					<h3 class="qs-title"><a href="${window.location.href}/${question.id}" class="question">${question.title}</a></h3>
+					<div>
+						<h5 class="person-answer">${username}
+							<br>
+							<small>Answered <span>${time}</span></small>
+						</h5>
+					</div>
+					<p class="answer">
+						${answer}
+					</p>
+					<h6>Answers: <span>${numAnswers}</span></h6>
 				`
 				card.innerHTML = demo;
 				root.appendChild(card);		
