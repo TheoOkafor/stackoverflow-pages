@@ -1,7 +1,7 @@
 const root = document.getElementById('root');
 const questionContainer = document.getElementsByClassName('question')[0];
 const questionExtra = document.getElementsByClassName('question-extra')[0];
-const url = 'http://localhost:3000/v1/questions/3';
+const url = 'http://localhost:3000/v1/questions/23';
 
 
 const fetchQuestion = () => {
@@ -82,4 +82,7 @@ const fetchQuestion = () => {
 			});
 				
 		})
+		.catch(error => {
+			console.log(error.status);
+		});
 }
