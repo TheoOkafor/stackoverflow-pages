@@ -5,7 +5,7 @@
 	<meta name="description" content="StackOverflow-lite is a platform where people can ask questions and provide answers.">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="images/favicon/favicon.png">
+	<link rel="icon" type="image/png" href="./images/favicon/favicon.png">
 	<link rel="stylesheet" href="./stylesheets/style.css">
 <!--	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu"> -->
 </head>
@@ -16,9 +16,7 @@
 		</div>
 
 		<nav class="top-link right margin-top-25">
-			<a href="home.html" class="inherit">Home</a>
-			<a href="profile-page.html" class="inherit"><b>coco-maiko</b></a>
-			<a href="signin.html" class="inherit">logout</a>
+			
 		</nav>
 
 	</header>
@@ -36,7 +34,7 @@
 				</div>
 
 				<div class="card margin-top-15">
-					<h5>Coco-Maiko <small>(you)</small></h5>
+					<h5><span  id="username">Coco-Maiko</span> <small>(you)</small></h5>
 					<form class="question-form">
 						<input type="text" name="question-input" placeholder="What is your question?" id="title">
 						<textarea placeholder="Description (optional ie. You don't have to.)" id="description"></textarea>
@@ -70,8 +68,13 @@
 		<p class="sitemap margin-bottom-30"><small><a href="home.html" class="inherit">Home</a> | <a href="question.html" class="inherit">Question page</a> | <a href="question-signin.html" class="inherit">Question page 2</a> | <a href="profile-page.html" class="inherit">Profile page</a> | <a href="signup.html" class="inherit">Signup page</a> | <a href="signin.html" class="inherit">Signin page</a></small></p>
 		<p><small>Created by Theodore Okafor as part of Andela Developer Challenge</small></p>
 	</footer>
+	<script type="text/javascript">
+		const signupBtn = document.getElementById('sign-up');
+	</script>
 	<script src="javascript/custom.js"></script>
 	<script src="javascript/fetchAllQuestions.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 	<script>
 		window.addEventListener('load', fetchAllQuestions);
 	</script>

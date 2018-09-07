@@ -41,7 +41,7 @@ header {
 }
 
 footer {
-	position: absolute;
+	position: relative;
 	bottom: 0px;
 	left: 0px;
 	width:100%;
@@ -702,4 +702,10 @@ div.error-mssg {
 	padding: 50px;
 	font-size: 50px;
 	text-align: center
+}
+
+p.signup-error {
+	background-color: #b3d7ff;
+	color: #993366;
+	padding: 0px 7px;
 }

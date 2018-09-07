@@ -52,7 +52,6 @@ const checkPassword = () => {
 // PASSWORD MATCH CHECK
 const matchDisplay = document.getElementById('match-display');
 const password2 = document.getElementById('password2');
-const signupBtn = document.getElementById('sign-up');
 
 const passwordMatch = () => {
   if (password.value !== password2.value) {
@@ -118,4 +117,42 @@ const showCommentForm = (input) => {
 //CLOSE HOME NOTIFICATION
 const closeNotif = () => {
   document.getElementById('home-notif').style.display = 'none';
+}
+
+
+//Controls login and username menu display
+const nav = document.querySelector('nav.top-link');
+let username = window.localStorage.getItem('username');
+let userid = window.localStorage.getItem('userid');
+
+console.log(username, typeof username);
+
+if (!username || username === 'null') {
+  let navLinks = `
+    <a href="${window.location.href.split('/')[0]}/signup" class="inherit">Sign up</a> |
+    <a href="${window.location.href.split('/')[0]}/signin" class="inherit"> Sign in</a>`;
+  nav.innerHTML = navLinks;
+  
+} else {
+  let navLinks = `
+    <a href="${window.location.href.split('/')[0]}" class="inherit">Home</a>
+    <a href="${window.location.href.split('/')[0]}/users/${userid}" 
+      class="inherit"><b>${username}</b></a>
+    <a href="" class="inherit" id="logout">logout</a>`;
+  
+  nav.innerHTML = navLinks;
+}
+
+//LOGOUT
+let logout = document.getElementById('logout');
+if (logout) {
+  logout.addEventListener('click', (event) => {
+    event.preventDefault();
+    window.localStorage.setItem('username', null);
+    window.localStorage.setItem('userid', null);
+    window.localStorage
+      .setItem('x-access-token', null);
+
+    window.location.reload(true);
+  });
 }

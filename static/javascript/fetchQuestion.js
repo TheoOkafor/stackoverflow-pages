@@ -1,9 +1,18 @@
 const docTitle = document.getElementsByTagName('title')[0];
 const root = document.getElementById('root');
-const questionContainer = document.getElementsByClassName('question')[0];
-const questionExtra = document.getElementsByClassName('question-extra')[0];
-const url = 'http://localhost:3000/v1/questions/3';
+const dispName = document.getElementById('user-name');
+const questionContainer = document.getElementsByClassName('question');
+const questionExtra = document.getElementsByClassName('question-extra');
+const url = `http://localhost:3000/v1/questions${location.pathname}`;
 
+if (!username || username === 'null') {
+	dispName.innerHTML = `<h4><a href="" class="inherit">Guest 
+	</a><small>(you)</small></h4>`;
+} else {
+	dispName.innerHTML = `<h4><a href="${location.href.split('/')[0]}
+		/users/${userid}" class="inherit">${username} 
+		</a><small>(you)</small></h4>`;
+}
 
 const fetchQuestion = () => {
 	
@@ -12,15 +21,17 @@ const fetchQuestion = () => {
 			return response.json();
 		})
 		.then ( result => {
-			let question = result.data[0][0];
-			let answers = result.data[1];
 			console.log(result);
+			let question = result.result.question;
+			let answers = result.result.question.answers;
+
+			console.log(question);
 			docTitle.innerHTML = `${question.title} - Stack Overflow-lite`;
 			const questionItem = `
 				<h1>${question.title}</h1>
 				<p class="question-desc">${question.body}</p>
 			`
-			const authorized = false;
+			const authorized = username === question.username;
 			const deleteButton = authorized?
 				`<button class="btn danger margin-top-20" 
 					onclick= "confirm('This question will be DELETED permanently 
@@ -35,8 +46,8 @@ const fetchQuestion = () => {
 					</ul>
 					${deleteButton}
 			`
-			questionContainer.innerHTML = questionItem;
-			questionExtra.innerHTML = questionMore;
+			questionContainer[0].innerHTML = questionItem;
+			questionExtra[0].innerHTML = questionMore;
 
 			answers.map( (answer, i) => {
 				let answerCard = document.createElement('div');
@@ -84,6 +95,6 @@ const fetchQuestion = () => {
 				
 		})
 		.catch(error => {
-			console.log(error.status);
+			console.log(error);
 		});
 }

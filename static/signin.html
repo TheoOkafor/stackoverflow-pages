@@ -5,7 +5,7 @@
 	<meta name="description" content="StackOverflow-lite is a platform where people can ask questions and provide answers.">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="images/favicon/favicon.png">
+	<link rel="icon" type="image/png" href="./images/favicon/favicon.png">
 	<link rel="stylesheet" href="./stylesheets/style.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu">
 </head>
@@ -33,15 +33,15 @@
 				<form class="signup-form">
 					<p><small>Don't have an account?</small> <a href="signup.html" class="inherit"><b>Sign up</b></a></p>
 					
-					<p class="signin-error"></p>
+					<p class="signup-error"></p>
 					<div class="form-item">
-						<label for="username">Username or Email</label>
-						<input type="text" name="username" placeholder="username or email" required>
+						<label for="email">Email</label>
+						<input type="text" name="email" placeholder="Email" required>
 					</div>
 					
 					<div class="form-item">
 						<label for="password">Create Password</label>
-						<input type="password" name="create-password" placeholder="Create Password" id="password" required>
+						<input type="password" name="password" placeholder="Password" id="password" required>
 					</div>
 					
 					<button class="btn primary" id="sign-in">Sign in</button>
@@ -56,6 +56,11 @@
 		<p class="sitemap margin-bottom-30"><small><a href="home.html" class="inherit">Home</a> | <a href="question.html" class="inherit">Question page</a> | <a href="question-signin.html" class="inherit">Question page 2</a> | <a href="profile-page.html" class="inherit">Profile page</a> | <a href="signup.html" class="inherit">Signup page</a> | <a href="signin.html" class="inherit">Signin page</a></p>
 		<p><small>Created by Theodore Okafor as part of Andela Developer Challenge</small></p>
 	</footer>
-	<script src="javascript/build/custom.bundle.js"></script>
+	<script type="text/javascript">
+		const signupBtn = document.getElementById('sign-up');
+	</script>
+	<script src="javascript/custom.js"></script>
+	<script src="javascript/signin.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 </body>
 </html>

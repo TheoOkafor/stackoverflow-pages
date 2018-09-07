@@ -1,6 +1,12 @@
 const root = document.getElementById('root');
-const url = 'http://localhost:3000/v1/questions';
+const dispName = document.getElementById('username');
+const url = 'http://stackoverflow-by-theo1.herokuapp.com/v1/questions';
 
+if (!username || username === 'null') {
+	dispName.innerHTML = 'Guest';
+} else {
+	dispName.innerHTML = username;
+}
 
 const fetchAllQuestions = () => {
 	
@@ -9,20 +15,14 @@ const fetchAllQuestions = () => {
 			return response.json();
 		})
 		.then ( result => {
-			let questions = result.data[0];
-			let answers = result.data[1];
-			console.log(result);
 
 			//Reverse the array before mapping {Credit: AdamCooper86 - StackOverflow}
-			questions.slice(0).reverse().map( question => {
+			result.data.slice(0).reverse().map( question => {
 				let i = 0;
 				let answer = '';
 				let time = '';
 				let username = '';
-				let currAnswers = answers.filter( answer => {
-					return answer.questionid == question.id;
-				});
-
+				let currAnswers = question.answers;
 				let numAnswers = currAnswers.length || 0;
 				for (i in currAnswers){
 					if (currAnswers[i].accepted ){
@@ -32,7 +32,8 @@ const fetchAllQuestions = () => {
 					} else if (numAnswers > 0) {
 						let randomIndex = Math.floor(Math.random() * currAnswers.length);
 						answer = currAnswers[randomIndex].body;
-						time = currAnswers[randomIndex].timesubmitted;
+						time = new Date(currAnswers[randomIndex].timesubmitted)
+							.toDateString();
 						username = currAnswers[randomIndex].username;
 					}
 					else {
@@ -44,11 +45,13 @@ const fetchAllQuestions = () => {
 				let card = document.createElement('div');
 				card.setAttribute('class', 'card');
 				const demo = `
-					<h3 class="qs-title"><a href="${window.location.href}/${question.id}" class="question">${question.title}</a></h3>
+					<h3 class="qs-title">
+						<a href="${window.location.href.split('/')[0]}/questions/${question.id}" 
+						class="question">${question.title}</a></h3>
 					<div>
 						<h5 class="person-answer">${username}
 							<br>
-							<small>Answered <span>${time}</span></small>
+							<small>Answered: 	<span>${time}</span></small>
 						</h5>
 					</div>
 					<p class="answer">

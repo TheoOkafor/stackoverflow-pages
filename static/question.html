@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Why do people Suffer in Nigeria? - Stack Overflow-lite </title>
+	<title>Stack Overflow-lite </title>
 	<meta name="description" content="StackOverflow-lite is a platform where people can ask questions and provide answers.">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="images/favicon/favicon.png">
+	<link rel="icon" type="image/png" href="./images/favicon/favicon.png">
 	<link rel="stylesheet" href="./stylesheets/style.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu">
 </head>
@@ -37,7 +37,9 @@
 				</div>
 				
 				<div class="answer-card">
-					<h4><a href="profile-page.html" class="inherit">Coco-Maiko </a><small>(you)</small></h4>
+					<div id="user-name">
+						<h4><a href="" class="inherit">Coco-Maiko </a><small>(you)</small></h4>
+					</div>
 					<form class="answer-form">
 						<textarea rows="4" placeholder="Type your answer here"></textarea>
 						<div class="btn-group">
@@ -74,8 +76,8 @@
 		<p class="sitemap margin-bottom-30"><small><a href="home.html" class="inherit">Home</a> | <a href="question.html" class="inherit">Question page</a> | <a href="question-signin.html" class="inherit">Question page 2</a> | <a href="profile-page.html" class="inherit">Profile page</a> | <a href="signup.html" class="inherit">Signup page</a> | <a href="signin.html" class="inherit">Signin page</a></p>
 		<p><small>Created by Theodore Okafor as part of Andela Developer Challenge</small></p>
 	</footer>
-	<script src="javascript/custom.js"></script>
-	<script src="javascript/fetchQuestion.js"></script>
+	<script src="./javascript/custom.js"></script>
+	<script src="./javascript/fetchQuestion.js"></script>
 	<script>
 		window.addEventListener('load', fetchQuestion);
 	</script>
