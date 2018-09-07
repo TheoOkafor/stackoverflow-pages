@@ -1,24 +1,38 @@
-let root = document.getElementById('root');
-let url = 'http://localhost:3000/v1/questions';
 let titleInput = document.getElementById('title');
 let description = document.getElementById('description');
-let btn = document.getElementById('send-btn');
+let mssgDisp = document.getElementById('serverMessage');
+let askBtn = document.getElementById('send-btn');
 
-const postQuestion = () => {
-	const request = (url, {
-		method: 'POST', 
-		mode: 'cors', 
-		redirect: 'follow',
+askBtn.addEventListener('click', (event) => {
+	event.preventDefault();
+	const token = window.localStorage.getItem('x-access-token');
+	fetch (url, {
+		method: 'post',
 		headers: new Headers({
 			'Content-Type': 'application/json',
-			'x-access-token': 'x-access-token'
+			'x-access-token': token
 		}),
-		referrer: 'no-referrer',
 		body: JSON.stringify({
-			title: titleInput.value,
-			body: description.value 
+			'title': titleInput.value,
+			'body': description.value 
 		}),
+	})
+	.then( (response) => {
+		return response.json();
+	})
+	.then( (result) => {
+		console.log(result);
+		if (result.statusCode == 201) {
+			mssgDisp.setAttribute('class', 'text-success');
+			mssgDisp.innerHTML = result.message;
+
+			//location.reload(true);
+		} else {
+			mssgDisp.setAttribute('class', 'text-danger');
+			mssgDisp.innerHTML = result.error;
+		}
+	})
+	.catch(error =>{
+		console.log(error);
 	});
-	
-	fetch (request)
-		
+});

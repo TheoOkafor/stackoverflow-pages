@@ -125,8 +125,6 @@ const nav = document.querySelector('nav.top-link');
 let username = window.localStorage.getItem('username');
 let userid = window.localStorage.getItem('userid');
 
-console.log(username, typeof username);
-
 if (!username || username === 'null') {
   let navLinks = `
     <a href="${window.location.href.split('/')[0]}/signup" class="inherit">Sign up</a> |

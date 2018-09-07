@@ -34,15 +34,16 @@
 				</div>
 
 				<div class="card margin-top-15">
-					<h5><span  id="username">Coco-Maiko</span> <small>(you)</small></h5>
-					<form class="question-form">
+					<h5><span  id="username"> </span> <small>(you)</small></h5>
+					<p id="server-message"></p>
+					<div class="question-form">
 						<input type="text" name="question-input" placeholder="What is your question?" id="title">
 						<textarea placeholder="Description (optional ie. You don't have to.)" id="description"></textarea>
 						<div class="btn-group">
-							<button class="btn primary question-btn">Ask Question</button>
-							<input type="reset" value="Cancel" id="send-btn">
+							<button class="btn primary question-btn" id="send-btn">Ask Question</button>
+							<input type="reset" value="Cancel">
 						</div>
-					</form>
+					</div>
 				</div>
 
 			</div>
@@ -52,11 +53,11 @@
 			<h3 class="side-title">Questions with Most Answers</h3>
 			<div>
 				<ul class="list">
-					<li><a href="question.html">Why do people Suffer in Nigeria?</a></li>
-					<li><a href="question.html">lorem ipsum?</a></li>
-					<li><a href="question.html">do people Suffer?</a></li>
-					<li><a href="question.html">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</a></li>
-					<li><a href="question.html">dolor sit amet, consectetur adipisicing elit?</a></li>
+					<li><a href="">Why do people Suffer in Nigeria?</a></li>
+					<li><a href="">lorem ipsum?</a></li>
+					<li><a href="">do people Suffer?</a></li>
+					<li><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</a></li>
+					<li><a href="">dolor sit amet, consectetur adipisicing elit?</a></li>
 				</ul>
 			</div>
 		</div>
@@ -72,8 +73,9 @@
 		const signupBtn = document.getElementById('sign-up');
 	</script>
 	<script src="javascript/custom.js"></script>
-	<script src="javascript/fetchAllQuestions.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="javascript/fetchAllQuestions.js"></script>
+	<script src="javascript/postQuestion.js"></script>
 
 	<script>
 		window.addEventListener('load', fetchAllQuestions);

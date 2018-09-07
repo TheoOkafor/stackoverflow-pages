@@ -1,6 +1,6 @@
 const root = document.getElementById('root');
 const dispName = document.getElementById('username');
-const url = 'http://stackoverflow-by-theo1.herokuapp.com/v1/questions';
+const url = 'http://localhost:3000/v1/questions';
 
 if (!username || username === 'null') {
 	dispName.innerHTML = 'Guest';

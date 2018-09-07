@@ -713,3 +713,11 @@ p.signup-error {
 	color: #993366;
 	padding: 0px 7px;
 }
+
+.text-success {
+	color: #009933;
+}
+
+.text-danger {
+	color: #ff0066;
+}

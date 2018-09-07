@@ -60,7 +60,7 @@ const fetchQuestion = () => {
 				questionContainer[0].innerHTML = questionItem;
 				questionExtra[0].innerHTML = questionMore;
 
-				answers.map( (answer, i) => {
+				answers.slice(0).reverse().map( (answer, i) => {
 					let answerCard = document.createElement('div');
 					answerCard.setAttribute('class', 'answer-card');
 					let newClass = authorized && !hasAccepted? '': 'no-show';
@@ -78,10 +78,10 @@ const fetchQuestion = () => {
 							</h4>
 
 							<div class="accepted right ${status}">Accepted</div>
-								<button class="btn accept right ${newClass}" value="${i}" 
-									onclick="showAccepted(this.value)">Accept Answer</button>
-								<button class="btn unaccept right ${addClass}" value="${i}" 
-									onclick="showAcceptBtn(this.value)">Un-accept Answer</button>
+								<button class="btn accept right ${newClass}" value="${i}" id="acc-${answer.id}"
+									onclick="showAccepted(this.value, this.id)">Accept Answer</button>
+								<button class="btn unaccept right ${addClass}" value="${i}" id="un-${answer.id}"
+									onclick="showAcceptBtn(this.value, this.id)">Un-accept Answer</button>
 							</div>
 						<div class="clear-fix"></div>
 						<p class="answer">
