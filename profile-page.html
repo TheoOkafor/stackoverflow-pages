@@ -25,14 +25,8 @@
 
 	<div class="row-container home">
 		<div class="sd-margin-12 d-margin-3">
-			<div class="card margin-top-30">
-				<h4 class="margin-bottom-20"><span class="profile-username">coco-maiko</span>'s Summary</h4>
+			<div class="card margin-top-30" id="profile-summary">
 
-				<ul class="list list-unstyled">
-					<li>Joined: <b>October 2, 2018</b></li>
-					<li><b>10</b> Questions</li>
-					<li><b>40</b> Answers</li>
-				</ul>
 			</div>
 		</div>
 
@@ -42,57 +36,15 @@
 
 				<table class="table">
 					
-					<tr>
-						<td><p><a href="question.html" class="question">Why do people Suffer in Nigeria?</a></p></td>
-						<td><p class="num-answer">4</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">Does scripting in Java mean that I can JavaScript?</a></p></td>
-						<td><p class="num-answer selected">35</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">What does Nigeria and Ghana have in common lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod?</a></p></td>
-						<td><p class="num-answer selected">6</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">What is the best way to declare variables in Python?</a></p></td>
-						<td><p class="num-answer">50</p></td>
-					</tr>
+					
 				</table>
 			</div>
 
 			<div class="row-container">
-				<h3>All 10 Questions by <span class="profile-username">coco-maiko</span></h3>
+				<h3>All <span id="all-questions">10</span> Questions by <span class="profile-username">coco-maiko</span></h3>
 				
 				<table class="table">
-					<tr>
-						<td><p><a href="question.html" class="question">Why do people Suffer in Nigeria?</a></p></td>
-						<td><p class="num-answer selected">100</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">What is the best way to declare variables in Python?</a></p></td>
-						<td><p class="num-answer selected">50</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">Does scripting in Java mean that I can JavaScript?</a></p></td>
-						<td><p class="num-answer selected">35</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">What does Nigeria and Ghana have in common olor sit amet, consectetur adipisicing elit?</a></p></td>
-						<td><p class="num-answer selected">6</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">What is the best way to declare variables in Python?</a></p></td>
-						<td><p class="num-answer">5</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">Does scripting in Java mean that I can JavaScript?</a></p></td>
-						<td><p class="num-answer">4</p></td>
-					</tr>
-					<tr>
-						<td><p><a href="" class="question">What does Nigeria and Ghana have in common?</a></p></td>
-						<td><p class="num-answer selected">1</p></td>
-					</tr>
+
 				</table>
 			</div>
 		</div>
@@ -115,6 +67,10 @@
 		<p class="sitemap margin-bottom-30"><small><a href="home.html" class="inherit">Home</a> | <a href="question.html" class="inherit">Question page</a> | <a href="question-signin.html" class="inherit">Question page 2</a> | <a href="profile-page.html" class="inherit">Profile page</a> | <a href="signup.html" class="inherit">Signup page</a> | <a href="signin.html" class="inherit">Signin page</a></small></p>
 		<p><small>Created by Theodore Okafor as part of Andela Developer Challenge</small></p>
 	</footer>
-	<script src="javascript/build/custom.bundle.js"></script>
+	<script src="javascript/custom.js"></script>
+	<script src="javascript/fetchUser.js"></script>
+	<script>
+		window.addEventListener('load', fetchUser);
+	</script>
 </body>
 </html>

@@ -1,7 +1,8 @@
+const docTitle = document.getElementsByTagName('title')[0];
 const root = document.getElementById('root');
 const questionContainer = document.getElementsByClassName('question')[0];
 const questionExtra = document.getElementsByClassName('question-extra')[0];
-const url = 'http://localhost:3000/v1/questions/23';
+const url = 'http://localhost:3000/v1/questions/3';
 
 
 const fetchQuestion = () => {
@@ -14,7 +15,7 @@ const fetchQuestion = () => {
 			let question = result.data[0][0];
 			let answers = result.data[1];
 			console.log(result);
-
+			docTitle.innerHTML = `${question.title} - Stack Overflow-lite`;
 			const questionItem = `
 				<h1>${question.title}</h1>
 				<p class="question-desc">${question.body}</p>
