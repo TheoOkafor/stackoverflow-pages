@@ -53,4 +53,9 @@ routes.get('/logout', (req, res) => {
 	}
 });
 
+//Signin
+routes.get('/error-404', (req, res) => {
+	res.sendFile(path.join(__dirname + './../static/not-found.html'));
+});
+
 export default routes;

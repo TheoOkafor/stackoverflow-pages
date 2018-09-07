@@ -543,6 +543,10 @@ div.answer-card {
 	display: none;
 }
 
+.show {
+	display: inline;
+}
+
 .default {
 	display: inline-block;
 }
