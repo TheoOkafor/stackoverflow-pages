@@ -1,21 +1,19 @@
-let titleInput = document.getElementById('title');
-let description = document.getElementById('description');
+let body = document.getElementById('body');
 let mssgDisp = document.getElementById('server-message');
-let askBtn = document.getElementById('send-btn');
-
-askBtn.addEventListener('click', (event) => {
+let addAnswerBtn = document.getElementById('add-answer');
+const link = `http://localhost:3000/v1/questions${location.pathname}/answers`;
+addAnswerBtn.addEventListener('click', (event) => {
 	event.preventDefault();
 	const token = window.localStorage.getItem('x-access-token');
 	console.log(token);
-	fetch (url, {
+	fetch (link, {
 		method: 'post',
 		headers: new Headers({
 			'Content-Type': 'application/json',
 			'x-access-token': token
 		}),
 		body: JSON.stringify({
-			'title': titleInput.value,
-			'body': description.value 
+			'body': body.value 
 		}),
 	})
 	.then( (response) => {

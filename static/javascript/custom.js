@@ -64,33 +64,82 @@ const passwordMatch = () => {
 
 // ACCEPT-ANSWER TOGGLE
 
-const showAccepted = (input) => {
+const showAccepted = (input, id) => {
   const index = parseInt(input);
   const accepted = document.getElementsByClassName('accepted');
   const unacceptBtn = document.getElementsByClassName('unaccept');
   const acceptBtns = document.getElementsByClassName('accept');
+  const link = `http://localhost:3000/v1/questions${location.pathname}/answers/${id.split('-')[1]}`;
+  const token = window.localStorage.getItem('x-access-token');
+  console.log(id);
+  fetch (link, {
+    method: 'put',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      'x-access-token': token
+    }),
+    body: JSON.stringify({
+      'value': true 
+    }),
+  })
+  .then( (response) => {
+    return response.json();
+  })
+  .then( (result) => {
+    console.log(result);
+    if (result.statusCode === 201) {
+      unacceptBtn[index].style.display = 'inline';
+      accepted[index].style.display = 'inline';
 
-  unacceptBtn[index].style.display = 'inline';
-  accepted[index].style.display = 'inline';
+      for (let i = 0; i <= acceptBtns.length - 1; i++) {
+        acceptBtns[i].style.display = 'none';
+      }
+      setTimeout(location.reload(true), 3000); //Reload the page from server
+    }
+  })
+  .catch(error =>{
+    console.log(error);
+  });
 
-  for (let i = 0; i <= acceptBtns.length - 1; i++) {
-    acceptBtns[i].style.display = 'none';
-  }
 };
 
-
-const showAcceptBtn = (input) => {
+//UNACCEPT ANSWER
+const showAcceptBtn = (input, id) => {
   const index = parseInt(input);
   const accepted = document.getElementsByClassName('accepted');
   const unacceptBtn = document.getElementsByClassName('unaccept');
   const acceptBtns = document.getElementsByClassName('accept');
+  const link = `http://localhost:3000/v1/questions${location.pathname}/answers/${id.split('-')[1]}`;
+  const token = window.localStorage.getItem('x-access-token');
 
-  unacceptBtn[index].style.display = 'none';
-  accepted[index].style.display = 'none';
+  fetch (link, {
+    method: 'put',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      'x-access-token': token
+    }),
+    body: JSON.stringify({
+      'value': false 
+    }),
+  })
+  .then( (response) => {
+    return response.json();
+  })
+  .then( (result) => {
+    console.log(result);
+    if (result.statusCode === 201) {
+      unacceptBtn[index].style.display = 'none';
+      accepted[index].style.display = 'none';
 
-  for (let i = 0; i <= acceptBtns.length - 1; i++) {
-    acceptBtns[i].style.display = 'inline';
-  }
+      for (let i = 0; i <= acceptBtns.length - 1; i++) {
+        acceptBtns[i].style.display = 'inline';
+      }
+      setTimeout(location.reload(true), 3000); //Reload the page from server
+    }
+  })
+  .catch(error =>{
+    console.log(error);
+  });
 };
 
 // SHOW MORE CONTENT BUTTON
@@ -133,7 +182,7 @@ if (!username || username === 'null') {
   
 } else {
   let navLinks = `
-    <a href="${window.location.href.split('/')[0]}" class="inherit">Home</a>
+    <a href="${window.location.href.split('/')[0]}/" class="inherit">Home</a>
     <a href="${window.location.href.split('/')[0]}/users/${userid}" 
       class="inherit"><b>${username}</b></a>
     <a href="" class="inherit" id="logout">logout</a>`;

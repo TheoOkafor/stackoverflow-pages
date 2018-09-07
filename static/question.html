@@ -38,15 +38,16 @@
 				
 				<div class="answer-card">
 					<div id="user-name">
-						<h4><a href="" class="inherit">Coco-Maiko </a><small>(you)</small></h4>
+						<h4><a href="" class="inherit"> </a><small>(you)</small></h4>
 					</div>
-					<form class="answer-form">
-						<textarea rows="4" placeholder="Type your answer here"></textarea>
+					<p id="server-message"></p>
+					<div class="answer-form">
+						<textarea rows="4" placeholder="Type your answer here" id="body"></textarea>
 						<div class="btn-group">
-							<button class="btn answer-btn primary">Add Answer</button>
+							<button class="btn answer-btn primary" id="add-answer">Add Answer</button>
 							<input type="reset" value="Cancel">
 						</div>
-					</form>
+					</div>
 				</div>
 
 			</div>
@@ -78,6 +79,7 @@
 	</footer>
 	<script src="./javascript/custom.js"></script>
 	<script src="./javascript/fetchQuestion.js"></script>
+	<script src="./javascript/postAnswer.js"></script>
 	<script>
 		window.addEventListener('load', fetchQuestion);
 	</script>
