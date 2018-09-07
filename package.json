@@ -1,0 +1,49 @@
+{
+  "name": "stackoverflow-pages",
+  "version": "1.0.0",
+  "description": "A platform for questions and answers",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js",
+    "devstart": "nodemon index.js --exec babel-node",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheoOkafor/stackoverflow-pages.git"
+  },
+  "keywords": [
+    "stackoverflow-by-theo"
+  ],
+  "author": "Theo Okafor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheoOkafor/stackoverflow-pages/issues"
+  },
+  "homepage": "https://github.com/TheoOkafor/stackoverflow-pages#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "~1.4.3",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jquery": "^3.3.1",
+    "jsdoc": "^3.5.5",
+    "morgan": "~1.9.0"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.6",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "nodemon": "^1.18.3"
+  },
+  "engines": {
+    "node": "8.11.3"
+  }
+}
