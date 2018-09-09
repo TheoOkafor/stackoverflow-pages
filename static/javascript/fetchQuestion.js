@@ -3,7 +3,11 @@ const root = document.getElementById('root');
 const dispName = document.getElementById('user-name');
 const questionContainer = document.getElementsByClassName('question');
 const questionExtra = document.getElementsByClassName('question-extra');
+const deletePromptDisp = document.getElementById('overlay-delete');
+const deletePromptInner = document.querySelector('#overlay-delete div');
+
 const url = `http://localhost:3000/v1/questions${location.pathname}`;
+
 
 if (!username || username === 'null') {
 	dispName.innerHTML = `<h4><a href="" class="inherit">Guest 
@@ -14,6 +18,7 @@ if (!username || username === 'null') {
 		</a><small>(you)</small></h4>`;
 }
 
+// Handles the question page and answers API fetch
 const fetchQuestion = () => {
 	
 	fetch (url)
@@ -27,12 +32,22 @@ const fetchQuestion = () => {
 				let question = result.result.question;
 				let answers = result.result.question.answers;
 
+				let deletePrompt = `
+					<p>This question will be DELETED permanently (this CANNOT be reversed)</p>
+					<button class="btn" id="delete-confirm" 
+					value="${question.id}" onclick="deleteQuestion(this.value)"> OK, Delete Question</button>
+					<button class="btn primary-o" id="delete-cancel" onclick="cancelDelete()">Cancel</button>
+					`;
+
+				deletePromptInner.innerHTML = deletePrompt;
+
 				// Get an array containing the accepted answer
 				let acceptedAnswer = answers.filter( answer => {
 					if (answer.accepted) {
 						return true;
 					}
 				});
+
 				// Check whether the question has an answer that has been accepted.
 				let hasAccepted = acceptedAnswer.length > 0? true: false;
 
@@ -43,9 +58,8 @@ const fetchQuestion = () => {
 				`
 				const authorized = username === question.username;
 				const deleteButton = authorized?
-					`<button class="btn danger margin-top-20" 
-						onclick= "confirm('This question will be DELETED permanently 
-						(this CANNOT be reversed)')">Delete Question</button>`: '';
+					`<button class="btn margin-top-20" 
+						onclick= "showDeleteOverlay()">Delete Question</button>`: '';
 
 				const questionMore = `
 						<ul class="list list-unstyled">
@@ -60,7 +74,13 @@ const fetchQuestion = () => {
 				questionContainer[0].innerHTML = questionItem;
 				questionExtra[0].innerHTML = questionMore;
 
-				answers.slice(0).reverse().map( (answer, i) => {
+				// Arrange Questions to start with the the accepted answer
+				// if the an answer has been accepted.
+				if (hasAccepted) {
+					answers = answers.slice(0).reverse();
+				}
+				// Loops through the answer array, adding answer elements to the DOM
+				answers.map( (answer, i) => {
 					let answerCard = document.createElement('div');
 					answerCard.setAttribute('class', 'answer-card');
 					let newClass = authorized && !hasAccepted? '': 'no-show';
@@ -104,12 +124,57 @@ const fetchQuestion = () => {
 							</form>
 						</div>
 					`
+
 					answerCard.innerHTML = answerContent;
 					root.appendChild(answerCard);
 				});
+				//End of Answer.map function.
 			}		
 		})
 		.catch(error => {
 			console.log(error)
 		});
+}
+
+const showDeleteOverlay = () => {
+	deletePromptDisp.style.display = 'block';
+}
+const cancelDelete = () => {
+	deletePromptDisp.style.display = 'none';
+}
+
+// Handles the delete question API fetch
+const deleteQuestion = (questionId) => {
+	const token = window.localStorage.getItem('x-access-token'); 
+	fetch(url, {
+		method: 'delete',
+		headers: new Headers({
+			'Content-Type': 'application/json',
+			'x-access-token': token
+		}),
+	})
+	.then( (response) => {
+		console.log(response);
+		return response.json();
+	})
+	.then( (result) => {
+		console.log(result);
+		let mssgDisp = document.createElement('p');
+		if (result.statusCode === 201) {
+			mssgDisp.innerHTML = result.message;
+
+			deletePromptInner.innerHTML = "Done";
+			deletePromptInner.appendChild(mssgDisp);
+			setTimeout(location.reload(true), 5000); //Reload the page from server
+		} else {
+			mssgDisp.innerHTML = result.error;
+
+			deletePromptInner.innerHTML = "Done";
+			deletePromptInner.appendChild(mssgDisp);
+		}
+	})
+	.catch(error =>{
+		console.log(error);
+	});
+
 }
