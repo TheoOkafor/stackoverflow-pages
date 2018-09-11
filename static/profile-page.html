@@ -5,14 +5,15 @@
 	<meta name="description" content="StackOverflow-lite is a platform where people can ask questions and provide answers.">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/png" href="images/favicon/favicon.png">
+	<base href="/">
+	<link rel="icon" type="image/png" href="./images/favicon/favicon.png">
 	<link rel="stylesheet" href="./stylesheets/style.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Ubuntu">
 </head>
 <body>
 	<header class="home">
 		<div class="logo">
-			<a href="home.html"><p class="home">StackOverflow<small>-lite</small></p></a>
+			<a href=""><p class="home">StackOverflow<small>-lite</small></p></a>
 		</div>
 
 		<nav class="top-link right margin-top-25">
@@ -64,11 +65,11 @@
 	</div><!--End of Row Container -->
 
 	<footer class="home center margin-top-30">
-		<p class="sitemap margin-bottom-30"><small><a href="home.html" class="inherit">Home</a> | <a href="question.html" class="inherit">Question page</a> | <a href="question-signin.html" class="inherit">Question page 2</a> | <a href="profile-page.html" class="inherit">Profile page</a> | <a href="signup.html" class="inherit">Signup page</a> | <a href="signin.html" class="inherit">Signin page</a></small></p>
+		<p class="sitemap margin-bottom-30"><small><a href="/" class="inherit">Home</a> | <a href="/signup" class="inherit">Signup page</a> | <a href="/signin" class="inherit">Signin page</a></small></p>
 		<p><small>Created by Theodore Okafor as part of Andela Developer Challenge</small></p>
 	</footer>
-	<script src="javascript/custom.js"></script>
-	<script src="javascript/fetchUser.js"></script>
+	<script src="./javascript/custom.js"></script>
+	<script src="./javascript/fetchUser.js"></script>
 	<script>
 		window.addEventListener('load', fetchUser);
 	</script>
