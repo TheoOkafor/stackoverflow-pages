@@ -29,8 +29,8 @@ const fetchQuestion = () => {
 			if (result.statusCode === 404){
 				location.assign(`${location.href.split('/')[0]}/error-404`);
 			} else {
-				let question = result.result.question;
-				let answers = result.result.question.answers;
+				let question = result.data;
+				let answers = result.data.answers;
 
 				let deletePrompt = `
 					<p>This question will be DELETED permanently (this CANNOT be reversed)</p>
@@ -108,9 +108,14 @@ const fetchQuestion = () => {
 							${answer.body}
 						</p>
 						<div class="answer-options">
-							<span class="upvote-display">3</span>
-							<button class="btn primary-o">Upvote</button>
-							<button class="link gray">Downvote</button>
+							<p id="vote-mssg-${answer.id}"></p>
+							<span class="upvote-display">${answer.upvotes}</span>
+							<button class="btn primary-o" value="${answer.id}" 
+								onclick="upvoteAnswer(this.value)">Upvote</button>
+
+							<span class="vote-display">${answer.downvotes}</span>
+							<button class="link gray" value="${answer.id}" 
+								onclick="downvoteAnswer(this.value)">Downvote</button>
 							<button class="link" value="${i}" 
 								onclick="showCommentForm(this.value)">Comment</button>
 

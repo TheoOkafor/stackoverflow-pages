@@ -2,7 +2,7 @@ const docTitle = document.getElementsByTagName('title')[0];
 const root = document.getElementById('root');
 const allQuestionNum = document.getElementById('all-questions');
 const profile = document.getElementById('profile-summary');
-const table = document.getElementsByClassName('table')
+const table = document.getElementsByClassName('user-table')
 const profileName = document.getElementsByClassName('profile-username');
 const url = `http://localhost:3000/v1${location.pathname}`;
 

@@ -60,14 +60,10 @@
 			</div>
 
 			<div>		
-				<h3 class="side-title">Questions with Most Answers</h3>
-				<ul class="list">
-					<li><a href="">Why do people Suffer in Nigeria?</a></li>
-					<li><a href="">lorem ipsum?</a></li>
-					<li><a href="">do people Suffer?</a></li>
-					<li><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</a></li>
-					<li><a href="">dolor sit amet, consectetur adipisicing elit?</a></li>
-				</ul>
+				<h3 class="side-title">Top Questions with Most Answers</h3>
+				<table class="table" id="top-questions">
+					
+				</table>
 			</div>
 		</div>
 		<div id="overlay-delete">
@@ -85,9 +81,12 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="./javascript/custom.js"></script>
 	<script src="./javascript/fetchQuestion.js"></script>
+	<script src="./javascript/fetchTopQuestions.js"></script>
 	<script src="./javascript/postAnswer.js"></script>
+	<script src="./javascript/postVote.js"></script>
 	<script>
 		window.addEventListener('load', fetchQuestion);
+		window.addEventListener('load', fetchTopQuestions);
 	</script>
 </body>
 </html>

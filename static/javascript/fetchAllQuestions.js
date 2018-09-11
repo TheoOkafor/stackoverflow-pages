@@ -1,6 +1,5 @@
 const root = document.getElementById('root');
 const dispName = document.getElementById('username');
-const topQuestions = document.getElementById('top-questions');
 const url = 'http://localhost:3000/v1/questions';
 
 if (!username || username === 'null') {
@@ -19,7 +18,6 @@ const fetchAllQuestions = () => {
 			let questionSummary = [];
 			//Reverse the array before mapping {Credit: AdamCooper86 - StackOverflow}
 			let data =result.data.slice(0).reverse();
-			let hasAccepted;
 
 			//creates an div element called card and maps the questions to it.
 			data.map( question => {
@@ -32,12 +30,10 @@ const fetchAllQuestions = () => {
 
 				for (i in currAnswers){
 					if (currAnswers[i].accepted ){
-						hasAccepted = true;
 						answer = currAnswers[i].body;
 						time = currAnswers[i].timesubmitted;
 						username = currAnswers[i].username;
 					} else if (numAnswers > 0) {
-						hasAccepted = false;
 						let randomIndex = Math.floor(Math.random() * currAnswers.length);
 						answer = currAnswers[randomIndex].body;
 						time = new Date(currAnswers[randomIndex].timesubmitted)
@@ -50,13 +46,6 @@ const fetchAllQuestions = () => {
 						username = null;
 					}
 				}
-
-				questionSummary.push({
-					id: question.id,
-					numAnswers: question.numAnswers,
-					title: question.title,
-					hasAccepted: hasAccepted,
-				});
 
 				let card = document.createElement('div');
 				card.setAttribute('class', 'card');
@@ -80,21 +69,6 @@ const fetchAllQuestions = () => {
 				root.appendChild(card);		
 			});
 
-			
-			questionSummary.sort((a, b) => { 
-				return b.numAnswers - a.numAnswers});
-
-			console.log(questionSummary);
-			for (let i=0; i < 6; i++) {
-				let tableItem = document.createElement('tr');
-				tableItem.innerHTML = `
-					<td><p class="num-answer ${questionSummary[i].hasAccepted?'selected': ''}">
-						${questionSummary[i].numAnswers}</p></td>
-					<td><p><a href="${location.href.split('/')[0]}/questions/${questionSummary[i].id}">
-						${questionSummary[i].title}</a></p></td>
-`;
-				topQuestions.appendChild(tableItem);
-			}
 		})
 		.catch(error => {
 			console.log(error);

@@ -35,8 +35,7 @@
 			<div class="row-container margin-top-30 margin-bottom-20">
 				<h3>Recent Questions by <span class="profile-username">coco-maiko</span></h3>
 
-				<table class="table">
-					
+				<table class="table user-table">
 					
 				</table>
 			</div>
@@ -44,21 +43,19 @@
 			<div class="row-container">
 				<h3>All <span id="all-questions">10</span> Questions by <span class="profile-username">coco-maiko</span></h3>
 				
-				<table class="table">
+				<table class="table user-table">
 
 				</table>
 			</div>
 		</div>
 
-		<div class="sd-margin-12 d-margin-3">	
-			<h4 class="side-title margin-top-30">Some questions <span class="profile-username">coco-maiko</span> has answered</h4>
-			<ul class="list">
-				<li><a href="">Why do people Suffer in Nigeria?</a></li>
-				<li><a href="">lorem ipsum?</a></li>
-				<li><a href="">do people Suffer?</a></li>
-				<li><a href="">Lorem ipsum dolor sit amet, consectetur adipisicing elit?</a></li>
-				<li><a href="">dolor sit amet, consectetur adipisicing elit?</a></li>
-			</ul>
+		<div class="sd-margin-12 d-margin-3">
+			<div>	
+				<h3 class="side-title">Top Questions with Most Answers</h3>
+				<table class="table" id="top-questions">
+					
+				</table>
+			</div>
 		</div>
 
 
@@ -69,9 +66,13 @@
 		<p><small>Created by Theodore Okafor as part of Andela Developer Challenge</small></p>
 	</footer>
 	<script src="./javascript/custom.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="./javascript/fetchUser.js"></script>
+	<script src="./javascript/fetchTopQuestions.js"></script>
 	<script>
 		window.addEventListener('load', fetchUser);
+		window.addEventListener('load', fetchTopQuestions);
+
 	</script>
 </body>
 </html>
