@@ -76,9 +76,9 @@ const fetchQuestion = () => {
 
 				// Arrange Questions to start with the the accepted answer
 				// if the an answer has been accepted.
-				if (hasAccepted) {
-					answers = answers.slice(0).reverse();
-				}
+				// if (hasAccepted) {
+				// 	answers = answers.slice(0).reverse();
+				// }
 				// Loops through the answer array, adding answer elements to the DOM
 				answers.map( (answer, i) => {
 					let answerCard = document.createElement('div');
