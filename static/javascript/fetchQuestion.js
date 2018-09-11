@@ -6,7 +6,7 @@ const questionExtra = document.getElementsByClassName('question-extra');
 const deletePromptDisp = document.getElementById('overlay-delete');
 const deletePromptInner = document.querySelector('#overlay-delete div');
 
-const url = `http://localhost:3000/v1/questions${location.pathname}`;
+const url = `http://localhost:3000/v1${location.pathname}`;
 
 
 if (!username || username === 'null') {
@@ -66,7 +66,7 @@ const fetchQuestion = () => {
 							<li>Time asked: 
 								<b>${new Date(question.timesubmitted).toDateString()}</b></li>
 							<li>Answers: <b>${answers.length}</b></li>
-							<li>Asked by: <a href="profile-page.html" class="inherit">
+							<li>Asked by: <a href="${location.href.split('/')[0]}/users/${question.userid}" class="inherit">
 								<b>${question.username}</b></a></li>
 						</ul>
 						${deleteButton}

@@ -15,9 +15,12 @@ const fetchAllQuestions = () => {
 			return response.json();
 		})
 		.then ( result => {
-
+			let topQuestions = [];
 			//Reverse the array before mapping {Credit: AdamCooper86 - StackOverflow}
-			result.data.slice(0).reverse().map( question => {
+			let data =result.data.slice(0).reverse();
+
+			//creates an div element called card and maps the questions to it.
+			data.map( question => {
 				let i = 0;
 				let answer = '';
 				let time = '';
@@ -49,8 +52,9 @@ const fetchAllQuestions = () => {
 						<a href="${window.location.href.split('/')[0]}/questions/${question.id}" 
 						class="question">${question.title}</a></h3>
 					<div>
-						<h5 class="person-answer">${username}
-							<br>
+						<h5 class="person-answer"><a class="inherit"
+						href="${location.href.split('/')[0]}/users/${question.userid}">
+						${username}</a><br>
 							<small>Answered: 	<span>${time}</span></small>
 						</h5>
 					</div>

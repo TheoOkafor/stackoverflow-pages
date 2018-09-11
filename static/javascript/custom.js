@@ -69,7 +69,7 @@ const showAccepted = (input, id) => {
   const accepted = document.getElementsByClassName('accepted');
   const unacceptBtn = document.getElementsByClassName('unaccept');
   const acceptBtns = document.getElementsByClassName('accept');
-  const link = `http://localhost:3000/v1/questions${location.pathname}/answers/${id.split('-')[1]}`;
+  const link = `http://localhost:3000/v1${location.pathname}/answers/${id.split('-')[1]}`;
   const token = window.localStorage.getItem('x-access-token');
   console.log(id);
   fetch (link, {
@@ -109,7 +109,7 @@ const showAcceptBtn = (input, id) => {
   const accepted = document.getElementsByClassName('accepted');
   const unacceptBtn = document.getElementsByClassName('unaccept');
   const acceptBtns = document.getElementsByClassName('accept');
-  const link = `http://localhost:3000/v1/questions${location.pathname}/answers/${id.split('-')[1]}`;
+  const link = `http://localhost:3000/v1${location.pathname}/answers/${id.split('-')[1]}`;
   const token = window.localStorage.getItem('x-access-token');
 
   fetch (link, {

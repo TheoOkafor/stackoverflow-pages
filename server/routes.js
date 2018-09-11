@@ -14,13 +14,8 @@ routes.get('/questions', (req, res) => {
 });
 
 //Fetch a question
-routes.get('/:id([0-9]{1,})', (req, res) => {
-	res.sendFile(path.join(__dirname + './../static/question.html'));
-});
-
-//Fetch a question
 routes.get('/questions/:id([0-9]{1,})', (req, res) => {
-	res.redirect('/'+req.params.id);
+	res.sendFile(path.join(__dirname + './../static/question.html'));
 });
 
 //Signup
@@ -53,9 +48,14 @@ routes.get('/logout', (req, res) => {
 	}
 });
 
-//Signin
+//Error page
 routes.get('/error-404', (req, res) => {
 	res.sendFile(path.join(__dirname + './../static/not-found.html'));
+});
+
+//Get User
+routes.get('/users/:id([0-9]{1,})', (req, res) => {
+	res.sendFile(path.join(__dirname + './../static/profile-page.html'));
 });
 
 export default routes;
