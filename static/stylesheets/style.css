@@ -743,3 +743,9 @@ p.signup-error {
 #overlay-delete p {
 	color: white;
 }
+
+p.comment-display {
+	margin: 5px 0px;
+	padding-top: 5px;
+	border-top: 1px solid #eee;
+}

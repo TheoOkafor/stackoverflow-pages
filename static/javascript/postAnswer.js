@@ -5,7 +5,6 @@ const link = `http://localhost:3000/v1${location.pathname}/answers`;
 addAnswerBtn.addEventListener('click', (event) => {
 	event.preventDefault();
 	const token = window.localStorage.getItem('x-access-token');
-	console.log(token);
 	fetch (link, {
 		method: 'post',
 		headers: new Headers({

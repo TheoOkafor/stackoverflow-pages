@@ -33,10 +33,13 @@ const fetchQuestion = () => {
 				let answers = result.data.answers;
 
 				let deletePrompt = `
-					<p>This question will be DELETED permanently (this CANNOT be reversed)</p>
+					<p>This question will be DELETED permanently 
+						(this CANNOT be reversed)</p>
 					<button class="btn" id="delete-confirm" 
-					value="${question.id}" onclick="deleteQuestion(this.value)"> OK, Delete Question</button>
-					<button class="btn primary-o" id="delete-cancel" onclick="cancelDelete()">Cancel</button>
+					value="${question.id}" onclick="deleteQuestion(this.value)"> 
+						OK, Delete Question</button>
+					<button class="btn primary-o" id="delete-cancel" 
+						onclick="cancelDelete()">Cancel</button>
 					`;
 
 				deletePromptInner.innerHTML = deletePrompt;
@@ -66,7 +69,9 @@ const fetchQuestion = () => {
 							<li>Time asked: 
 								<b>${new Date(question.timesubmitted).toDateString()}</b></li>
 							<li>Answers: <b>${answers.length}</b></li>
-							<li>Asked by: <a href="${location.href.split('/')[0]}/users/${question.userid}" class="inherit">
+							<li>Asked by: 
+								<a href="${location.href.split('/')[0]}/users/${question.userid}" 
+									class="inherit">
 								<b>${question.username}</b></a></li>
 						</ul>
 						${deleteButton}
@@ -81,15 +86,17 @@ const fetchQuestion = () => {
 				// }
 				// Loops through the answer array, adding answer elements to the DOM
 				answers.map( (answer, i) => {
+					let answerContainer = document.createElement('div');
 					let answerCard = document.createElement('div');
 					answerCard.setAttribute('class', 'answer-card');
 					let newClass = authorized && !hasAccepted? '': 'no-show';
 					let addClass = authorized && hasAccepted && answer.accepted? 'show': '';
 					let status = answer.accepted? 'default': '';
+					let comments = answer.comments
+
 					let answerContent = `
-						<div>
 							<h4 class="person-answer left">
-								<a href="profile-page.html" 
+								<a href="${location.href.split('/')[0]}/users/${answer.userid}" 
 									class="inherit">${answer.username}</a>
 								<br>
 								<small>Answered: 
@@ -98,10 +105,15 @@ const fetchQuestion = () => {
 							</h4>
 
 							<div class="accepted right ${status}">Accepted</div>
-								<button class="btn accept right ${newClass}" value="${i}" id="acc-${answer.id}"
-									onclick="showAccepted(this.value, this.id)">Accept Answer</button>
-								<button class="btn unaccept right ${addClass}" value="${i}" id="un-${answer.id}"
-									onclick="showAcceptBtn(this.value, this.id)">Un-accept Answer</button>
+								<button class="btn accept right ${newClass}" 
+									value="${i}" id="acc-${answer.id}"
+									onclick="showAccepted(this.value, this.id)">Accept Answer
+								</button>
+
+								<button class="btn unaccept right ${addClass}" 
+									value="${i}" id="un-${answer.id}"
+									onclick="showAcceptBtn(this.value, this.id)">Un-accept Answer
+								</button>
 							</div>
 						<div class="clear-fix"></div>
 						<p class="answer">
@@ -118,19 +130,49 @@ const fetchQuestion = () => {
 								onclick="downvoteAnswer(this.value)">Downvote</button>
 							<button class="link" value="${i}" 
 								onclick="showCommentForm(this.value)">Comment</button>
+						<div>
+					`;
+					answerContainer.innerHTML = answerContent;
 
-							<div class="comments">
-								<p class="comment-display"></p>
-							</div>
-							<form class="comment-form">
-								<textarea placeholder="Comment on this answer"></textarea>
-								<button class="btn primary">Post Comment</button>
-								<input type="reset" value="Cancel">
-							</form>
-						</div>
-					`
+					// COMMENTS
 
-					answerCard.innerHTML = answerContent;
+						const commentsCarrier = document.createElement('div');
+						commentsCarrier.setAttribute('class', 'comments');
+
+						// Maps the comments into the comments display DOM
+						comments.map(comment => {
+							const commentDisp = document.createElement('p');
+							commentDisp.setAttribute('class', 'comment-display');
+
+							const commentElems = `
+									<small>${comment.body} <span class="right">
+									<a href="${location.href.split('/')[0]}/users/
+										${comment.userid}" class="inherit"> <b>${comment.username}</b></a>
+										(${new Date(comment.timesubmitted).toDateString()})
+									</span><small>
+							`;
+							commentDisp.innerHTML = commentElems;
+							commentsCarrier.appendChild(commentDisp);
+						});
+						// End of comments map function
+
+						const commentForm = document.createElement('form');
+						commentForm.setAttribute('class', 'comment-form');
+
+						const commentFormElem = `
+							<p class="server-message-${answer.id}"></p>
+							<textarea placeholder="Comment on this answer" 
+								id="comment-box-${answer.id}"></textarea>
+							<button class="btn primary" id="comment-${answer.id}"
+								onclick="postComment(this.id)">Post Comment</button>
+							<input type="reset" value="Cancel">
+						`;
+						commentForm.innerHTML = commentFormElem;
+						commentsCarrier.appendChild(commentForm);
+
+					answerCard.appendChild(answerContainer);
+					answerCard.appendChild(commentsCarrier);
+
 					root.appendChild(answerCard);
 				});
 				//End of Answer.map function.
