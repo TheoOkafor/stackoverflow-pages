@@ -5,8 +5,9 @@ const questionContainer = document.getElementsByClassName('question');
 const questionExtra = document.getElementsByClassName('question-extra');
 const deletePromptDisp = document.getElementById('overlay-delete');
 const deletePromptInner = document.querySelector('#overlay-delete div');
+const addAnswerBtn = document.getElementById('add-answer');
 
-const url = `http://localhost:3000/v1${location.pathname}`;
+const url = `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}`;
 
 
 if (!username || username === 'null') {
@@ -20,7 +21,8 @@ if (!username || username === 'null') {
 
 // Handles the question page and answers API fetch
 const fetchQuestion = () => {
-	
+	//addAnswerBtn.removeEventListener("click", updateAnswerExec);
+	addAnswerBtn.addEventListener("click", postAnswer);
 	fetch (url)
 		.then( response => {
 			return response.json();
@@ -92,7 +94,12 @@ const fetchQuestion = () => {
 					let newClass = authorized && !hasAccepted? '': 'no-show';
 					let addClass = authorized && hasAccepted && answer.accepted? 'show': '';
 					let status = answer.accepted? 'default': '';
-					let comments = answer.comments
+					let comments = answer.comments;
+
+					let editButton =
+						`<button class="link" id="ansBtn-${answer.id}" 
+							onclick="updateAnswer(this.id)">Edit</button>`;
+					let canEditAnswer = username === answer.username;
 
 					let answerContent = `
 							<h4 class="person-answer left">
@@ -116,7 +123,7 @@ const fetchQuestion = () => {
 								</button>
 							</div>
 						<div class="clear-fix"></div>
-						<p class="answer">
+						<p class="answer" id="ans-${answer.id}">
 							${answer.body}
 						</p>
 						<div class="answer-options">
@@ -130,6 +137,7 @@ const fetchQuestion = () => {
 								onclick="downvoteAnswer(this.value)">Downvote</button>
 							<button class="link" value="${i}" 
 								onclick="showCommentForm(this.value)">Comment</button>
+							${canEditAnswer? editButton: ''}
 						<div>
 					`;
 					answerContainer.innerHTML = answerContent;
@@ -156,11 +164,11 @@ const fetchQuestion = () => {
 						});
 						// End of comments map function
 
-						const commentForm = document.createElement('form');
+						const commentForm = document.createElement('div');
 						commentForm.setAttribute('class', 'comment-form');
 
 						const commentFormElem = `
-							<p class="server-message-${answer.id}"></p>
+							<p id="server-message-${answer.id}"></p>
 							<textarea placeholder="Comment on this answer" 
 								id="comment-box-${answer.id}"></textarea>
 							<button class="btn primary" id="comment-${answer.id}"
@@ -174,6 +182,7 @@ const fetchQuestion = () => {
 					answerCard.appendChild(commentsCarrier);
 
 					root.appendChild(answerCard);
+					document.getElementsByClassName('loader')[0].style.display = 'none';
 				});
 				//End of Answer.map function.
 			}		

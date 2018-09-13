@@ -662,7 +662,7 @@ p.selected {
 }
 
 nav a, .sitemap a {
-	padding: 0px 10px;
+	padding: 0px 5px;
 }
 
 .caret {
@@ -748,4 +748,19 @@ p.comment-display {
 	margin: 5px 0px;
 	padding-top: 5px;
 	border-top: 1px solid #eee;
+}
+/*w3schools.com CSS loader implementation*/
+div.loader {
+	margin: auto;
+  border: 10px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 10px solid #009933;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

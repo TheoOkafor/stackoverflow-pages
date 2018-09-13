@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/v1/auth/signin';
+const url = 'https://stackoverflow-by-theo1.herokuapp.com/v1/auth/signin';
 let signinBtn = document.querySelector('button#sign-in');
 let emailInput = document.querySelector('input[name="email"]');
 let passwordInput = document.querySelector('input[name="password"]');

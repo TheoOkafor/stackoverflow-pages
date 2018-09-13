@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/v1/auth/signup';
+const url = 'https://stackoverflow-by-theo1.herokuapp.com/v1/auth/signup';
 
 let usernameInput = document.querySelector('input[name="username"]');
 let emailInput = document.querySelector('input[name="user-email"]');

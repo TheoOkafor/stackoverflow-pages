@@ -28,7 +28,8 @@
     "http-errors": "~1.6.2",
     "jquery": "^3.3.1",
     "jsdoc": "^3.5.5",
-    "morgan": "~1.9.0"
+    "morgan": "~1.9.0",
+    "swagger-ui": "^3.18.3"
   },
   "devDependencies": {
     "babel": "^6.23.0",

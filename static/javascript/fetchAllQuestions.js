@@ -1,6 +1,6 @@
 const root = document.getElementById('root');
 const dispName = document.getElementById('username');
-const url = 'http://localhost:3000/v1/questions';
+const url = 'https://stackoverflow-by-theo1.herokuapp.com/v1/questions';
 
 if (!username || username === 'null') {
 	dispName.innerHTML = 'Guest';
@@ -66,7 +66,8 @@ const fetchAllQuestions = () => {
 					<h6>Answers: <span>${numAnswers}</span></h6>
 				`
 				card.innerHTML = demo;
-				root.appendChild(card);		
+				root.appendChild(card);
+				document.getElementsByClassName('loader')[0].style.display = 'none';		
 			});
 
 		})

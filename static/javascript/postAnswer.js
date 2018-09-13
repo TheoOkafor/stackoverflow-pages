@@ -1,8 +1,10 @@
-let body = document.getElementById('body');
-let mssgDisp = document.getElementById('server-message');
-let addAnswerBtn = document.getElementById('add-answer');
-const link = `http://localhost:3000/v1${location.pathname}/answers`;
-addAnswerBtn.addEventListener('click', (event) => {
+// Post Answer
+
+const postAnswer = (event) => {
+	let body = document.getElementById('body');
+	let mssgDisp = document.getElementById('server-message');
+	const link = `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers`;
+
 	event.preventDefault();
 	const token = window.localStorage.getItem('x-access-token');
 	fetch (link, {
@@ -34,4 +36,4 @@ addAnswerBtn.addEventListener('click', (event) => {
 	.catch(error =>{
 		console.log(error);
 	});
-});
+};

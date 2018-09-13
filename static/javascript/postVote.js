@@ -2,7 +2,8 @@
 const upvoteAnswer = (id) => {
   // const voteDisp = document.getElementsByClassName('vote-display');
   const voteMssgDisp = document.getElementById(`vote-mssg-${id}`);
-  const link = `http://localhost:3000/v1${location.pathname}/answers/${id}`;
+  const link = 
+    `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id}`;
   const token = window.localStorage.getItem('x-access-token');
 
   fetch (link, {
@@ -37,7 +38,8 @@ const upvoteAnswer = (id) => {
 // DOWNVOTE ANSWER
 const downvoteAnswer = (id) => {
   const voteMssgDisp = document.getElementById(`vote-mssg-${id}`);
-  const link = `http://localhost:3000/v1${location.pathname}/answers/${id}`;
+  const link = 
+  `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id}`;
   const token = window.localStorage.getItem('x-access-token');
 
   fetch (link, {
@@ -61,6 +63,9 @@ const downvoteAnswer = (id) => {
     } else {
       voteMssgDisp.setAttribute('class', 'text-danger');
       voteMssgDisp.innerHTML = result.error;
+      // if(result.error == 'could not authenticate the token') {
+      //   location.assign(`${location.host}/signin`);
+      // }
     }
   })
   .catch(error =>{

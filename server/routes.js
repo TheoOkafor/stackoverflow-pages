@@ -58,4 +58,9 @@ routes.get('/users/:id([0-9]{1,})', (req, res) => {
 	res.sendFile(path.join(__dirname + './../static/profile-page.html'));
 });
 
+//Get API documentation
+routes.get('/v1/api-docs', (req, res) => {
+	res.sendFile(path.join(__dirname + './../static/swagger-ui/dist/index.html'));
+});
+
 export default routes;

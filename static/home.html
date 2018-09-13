@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="sd-margin-12 d-margin-7 margin-top-15">
-			<div class="row-container" id="root">
+			<div class="row-container">
 				<div class="card center" id="home-notif">
 					<button class="inherit right close" onclick="closeNotif()" >x</button>
 					<h3 class="">Updates to our Privacy Policy</h3>
@@ -38,12 +38,15 @@
 					<p id="server-message"></p>
 					<div class="question-form">
 						<input type="text" name="question-input" placeholder="What is your question?" id="title">
-						<textarea placeholder="Description (optional ie. You don't have to.)" id="description"></textarea>
+						<textarea placeholder="Description" id="description"></textarea>
 						<div class="btn-group">
 							<button class="btn primary question-btn" id="send-btn">Ask Question</button>
 							<input type="reset" value="Cancel">
 						</div>
 					</div>
+				</div>
+				<div id="root">
+					<div class="loader"></div>
 				</div>
 
 			</div>

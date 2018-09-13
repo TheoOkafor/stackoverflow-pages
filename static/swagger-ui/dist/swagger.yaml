@@ -1,0 +1,709 @@
+swagger: '2.0'
+info:
+  description: This is a question and answer API
+  version: 1.0.0
+  title: StackOverflow-by-theo
+  contact:
+    email: t3rdday@yahoo.com
+host: stackoverflow-by-theo1.herokuapp.com
+basePath: /v1
+tags:
+  - name: Questions
+    description: Ask questions and view questions
+  - name: Answers
+    description: Operations on answers
+paths:
+  /questions:
+    post:
+      tags:
+        - Questions
+      summary: Ask a new question
+      description: ''
+      operationId: postQuestion
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Title and Description following the question being asked
+          required: true
+          schema:
+            $ref: '#/definitions/reqPostQuestion'
+      responses:
+        '201':
+          description: New question added
+          schema:
+            $ref: '#/definitions/resPostQuestion'
+        '400':
+          description: Question must have title and body
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+    get:
+      tags:
+        - Questions
+      summary: Gets all questions in the database
+      description: ''
+      operationId: getQuestions
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Questions found
+          schema:
+            $ref: '#/definitions/resAllQuestions'
+        '400':
+          description: Bad URL and/or request method
+        '405':
+          description: Current HTTP request method is not allowed on this URI
+  '/questions/{questionId}':
+    get:
+      tags:
+        - Questions
+      summary: Find question by ID
+      description: Returns a single question
+      operationId: fetchOneQuestion
+      produces:
+        - application/json
+      parameters:
+        - name: questionId
+          in: path
+          description: ID of question to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: 'Question {questionId} found'
+          schema:
+            $ref: '#/definitions/resQuestion'
+        '404':
+          description: 'Question {questionId} Not Found'
+      security:
+        - api_key: []
+    delete:
+      tags:
+        - Questions
+      summary: Deletes a question
+      description: ''
+      operationId: deleteQuestion
+      produces:
+        - application/json
+      parameters:
+        - name: x-access-token
+          in: header
+          required: true
+          type: string
+        - name: questionId
+          in: path
+          description: Question id to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '201':
+          description: 'Question {questionId} deleted'
+        '403':
+          description: ' You are not authorised to complete this action'
+        '404':
+          description: 'Question {questionId} not found'
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+  '/questions/{questionId}/answers':
+    post:
+      tags:
+        - Answers
+      summary: Adds an answer to a question
+      description: ''
+      operationId: postAnswer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: questionId
+          in: path
+          description: ID of question to update with answer
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Body of the question being asked
+          required: true
+          schema:
+            $ref: '#/definitions/reqPostAnswer'
+      responses:
+        '201':
+          description: New answer added
+          schema:
+            $ref: '#/definitions/resPostAnswer'
+        '404':
+          description: 'Question {questionId} Not Found'
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+  '/questions/{questionId}/answers/{answerId}':
+    put:
+      tags:
+        - Answers
+      summary: Update an answer to a question
+      description: >-
+        The answer author calls the route to update answer, while the question
+        author calls the route to accept answer
+      operationId: updateAnswer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: questionId
+          in: path
+          description: ID of question to that has the answer
+          required: true
+          type: integer
+          format: int64
+        - name: answerId
+          in: path
+          description: ID of answer to be updated
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Body of the question being asked
+          required: true
+          schema:
+            $ref: '#/definitions/reqPostAnswer'
+      responses:
+        '201':
+          description: Answer has been updated
+          schema:
+            $ref: '#/definitions/resPostAnswer'
+        '404':
+          description: 'Answer {answerId} not found'
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+    post:
+      tags:
+        - Answers
+      summary: vote on an answer to a question
+      description: It can either be an UPVOTE or a DOWNVOTE
+      operationId: voteAnswer
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: questionId
+          in: path
+          description: ID of question to that has the answer
+          required: true
+          type: integer
+          format: int64
+        - name: answerId
+          in: path
+          description: ID of answer to be updated
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Body of the question being asked
+          required: true
+          schema:
+            $ref: '#/definitions/reqPostVote'
+      responses:
+        '201':
+          description: 'Answer {answerId} {vote}d'
+          schema:
+            $ref: '#/definitions/resPostVote'
+        '404':
+          description: Question or Answer not found
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+  '/questions/{questionId}/answers/{answerId}/comments':
+    post:
+      tags:
+        - Answers
+      summary: Post comment on an answer to a question
+      description: ''
+      operationId: postComment
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: questionId
+          in: path
+          description: ID of question to that has the answer
+          required: true
+          type: integer
+          format: int64
+        - name: answerId
+          in: path
+          description: ID of answer to be updated with comment
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: body
+          description: Body of the question being asked
+          required: true
+          schema:
+            $ref: '#/definitions/reqPostAnswer'
+      responses:
+        '201':
+          description: New comment added
+          schema:
+            $ref: '#/definitions/resPostAnswer'
+        '404':
+          description: 'Question {questionId} Not Found'
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+  /auth/signup:
+    post:
+      tags:
+        - Authentication
+      summary: Create an account on the website
+      description: ''
+      operationId: signup
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: 'username, email and password provided'
+          required: true
+          schema:
+            $ref: '#/definitions/reqSignup'
+      responses:
+        '201':
+          description: New user created.
+          schema:
+            $ref: '#/definitions/resSignup'
+        '409':
+          description: 'Account already exists, consider signing in'
+  /auth/signin:
+    post:
+      tags:
+        - Authentication
+      summary: Login to an account on the API
+      description: ''
+      operationId: signin
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: email and password provided
+          required: true
+          schema:
+            $ref: '#/definitions/reqSignin'
+      responses:
+        '200':
+          description: User has been logged in
+          schema:
+            $ref: '#/definitions/resSignin'
+        '404':
+          description: 'User not found, consider signing up'
+  '/users/{userId}':
+    get:
+      tags:
+        - User
+      summary: Get user details
+      description: Get a user using the userId
+      operationId: getUser
+      produces:
+        - application/json
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: User found
+          schema:
+            $ref: '#/definitions/resGetUser'
+        '404':
+          description: User not found
+securityDefinitions:
+  petstore_auth:
+    type: oauth2
+    authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+    flow: implicit
+    scopes:
+      'write:pets': modify pets in your account
+      'read:pets': read your pets
+  api_key:
+    type: apiKey
+    name: api_key
+    in: header
+definitions:
+  reqPostQuestion:
+    type: object
+    properties:
+      title:
+        type: string
+      body:
+        type: string
+    xml:
+      name: reqPostQuestion
+  reqPostAnswer:
+    type: object
+    properties:
+      body:
+        type: string
+    xml:
+      name: reqPostAnswer
+  reqPostVote:
+    type: object
+    properties:
+      vote:
+        type: string
+    xml:
+      name: reqPostVote
+  reqSignup:
+    type: object
+    required:
+      - username
+      - email
+      - password
+    properties:
+      username:
+        type: string
+        example: teddyBill
+      email:
+        type: string
+        example: teddybill@email.com
+      password:
+        type: string
+        description: Password
+    xml:
+      name: reqSignup
+  reqSignin:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      username:
+        type: string
+        example: teddyBill
+      email:
+        type: string
+        example: teddybill@email.com
+      password:
+        type: string
+        description: Password
+    xml:
+      name: reqSignin
+  resAllQuestions:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+        format: int64
+      message:
+        type: string
+      data:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            title:
+              type: string
+            body:
+              type: string
+            timesubmitted:
+              type: string
+              format: date-time
+            userid:
+              type: integer
+              format: int64
+            username:
+              type: string
+            answers:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                  questionid:
+                    type: integer
+                    format: int64
+                  body:
+                    type: string
+                  timesubmitted:
+                    type: string
+                    format: date-time
+                  userid:
+                    type: integer
+                    format: int64
+                  username:
+                    type: string
+                  accepted:
+                    type: boolean
+                    default: false
+    xml:
+      name: resAllQuestions
+  resQuestion:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+        format: int64
+      message:
+        type: string
+      data:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          title:
+            type: string
+          body:
+            type: string
+          timesubmitted:
+            type: string
+            format: date-time
+          userid:
+            type: integer
+            format: int64
+          username:
+            type: string
+          answers:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                questionid:
+                  type: integer
+                  format: int64
+                body:
+                  type: string
+                timesubmitted:
+                  type: string
+                  format: date-time
+                userid:
+                  type: integer
+                  format: int64
+                username:
+                  type: string
+                accepted:
+                  type: boolean
+                  default: false
+                upvotes:
+                  type: integer
+                  format: int64
+                downvotes:
+                  type: integer
+                  format: int64
+                votesCount:
+                  type: integer
+                  format: int64
+                comments:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                      answerid:
+                        type: integer
+                        format: int64
+                      questionid:
+                        type: integer
+                        format: int64
+                      body:
+                        type: string
+                      username:
+                        type: string
+                      userid:
+                        type: integer
+                        format: int64
+                      timesubmitted:
+                        type: string
+                        format: date-time
+    xml:
+      name: resQuestion
+  resPostAnswer:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+        format: int64
+      message:
+        type: string
+      data:
+        type: object
+        properties:
+          body:
+            type: string
+    xml:
+      name: resPostAnswer
+  resPostQuestion:
+    type: object
+    properties:
+      questionid:
+        type: integer
+        format: int64
+      title:
+        type: string
+      body:
+        type: string
+    xml:
+      name: resPostQuestion
+  resPostVote:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+        format: int64
+      message:
+        type: string
+      data:
+        type: object
+        properties:
+          voteid:
+            type: integer
+            format: int64
+    xml:
+      name: resPostVote
+  resSignup:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+        format: int64
+      message:
+        type: string
+      data:
+        type: object
+        properties:
+          userID:
+            type: integer
+            format: int64
+          username:
+            type: string
+          x-access-token:
+            type: string
+    xml:
+      name: reqSignup
+  resSignin:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+        format: int64
+      message:
+        type: string
+      data:
+        type: object
+        properties:
+          id:
+            type: integer
+            format: int64
+          username:
+            type: string
+          x-access-token:
+            type: string
+    xml:
+      name: reqSignin
+  resGetUser:
+    type: object
+    properties:
+      statusCode:
+        type: integer
+        format: int64
+      message:
+        type: string
+      data:
+        type: object
+        properties:
+          username:
+            type: string
+          email:
+            type: string
+          created:
+            type: string
+            format: date-time
+          modified:
+            type: string
+            format: date-time
+          questions:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int64
+                title:
+                  type: string
+                body:
+                  type: string
+                timesubmitted:
+                  type: string
+                  format: date-time
+                username:
+                  type: string
+                userid:
+                  type: integer
+                  format: int64
+                answers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        format: int64
+                      questionid:
+                        type: integer
+                        format: int64
+                      body:
+                        type: string
+                      timesubmitted:
+                        type: string
+                        format: date-time
+                      userid:
+                        type: integer
+                        format: int64
+                      username:
+                        type: string
+                      accepted:
+                        type: boolean
+                        default: false
+    xml:
+      name: resGetUser
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'

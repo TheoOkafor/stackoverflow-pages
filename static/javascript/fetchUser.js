@@ -4,7 +4,7 @@ const allQuestionNum = document.getElementById('all-questions');
 const profile = document.getElementById('profile-summary');
 const table = document.getElementsByClassName('user-table')
 const profileName = document.getElementsByClassName('profile-username');
-const url = `http://localhost:3000/v1${location.pathname}`;
+const url = `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}`;
 
 const fetchUser = () => {
 	
@@ -14,6 +14,7 @@ const fetchUser = () => {
 		})
 		.then ( result => {
 			if (result.statusCode === 200) {
+				console.log(result);
 				let timeJoined = new Date(result.data.created).toUTCString();
 				// userQuestionsArr is the questions array
 				let userQuestionsArr = result.data.questions;

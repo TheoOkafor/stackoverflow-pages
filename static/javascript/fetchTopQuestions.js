@@ -1,7 +1,7 @@
 const fetchTopQuestions = () => {
 
 	const topQuestions = document.getElementById('top-questions');
-	let url = `http://localhost:3000/v1/questions`
+	let url = `https://stackoverflow-by-theo1.herokuapp.com/v1/questions`
 	fetch (url)
 		.then( response => {
 			return response.json();
