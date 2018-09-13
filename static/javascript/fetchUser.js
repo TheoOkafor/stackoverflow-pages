@@ -14,7 +14,6 @@ const fetchUser = () => {
 		})
 		.then ( result => {
 			if (result.statusCode === 200) {
-				console.log(result);
 				let timeJoined = new Date(result.data.created).toUTCString();
 				// userQuestionsArr is the questions array
 				let userQuestionsArr = result.data.questions;
@@ -25,7 +24,8 @@ const fetchUser = () => {
 					profileName[i].innerHTML = result.data.username;
 				}
 
-				allQuestionNum.innerHTML = userQuestionsArr.length;
+				allQuestionNum.innerHTML = userQuestionsArr? userQuestionsArr.length:
+					0 ;
 
 				const profileSummary = `
 						<h4 class="margin-bottom-20"><span class="profile-username">
@@ -33,45 +33,53 @@ const fetchUser = () => {
 
 						<ul class="list list-unstyled">
 							<li>Joined: <b>${timeJoined}</b></li>
-							<li><b>${userQuestionsArr.length}</b> Questions</li>
-							<li><b>${userAnswersArr.length}</b> Answers</li>
+							<li><b>${userQuestionsArr?userQuestionsArr.length: 0}</b> Questions</li>
+							<li><b>${userAnswersArr? userAnswersArr.length: 0}</b> Answers</li>
 						</ul>
 				`
 				profile.innerHTML = profileSummary; 
+				if (userQuestionsArr) {
+					userQuestionsArr.map( question => {
 
-				userQuestionsArr.map( question => {
+						let numAnswers = question.answers.length;
+						// Get an array containing the accepted answer
+						let acceptedAnswer = question.answers.filter( answer => {
+							if (answer.accepted) {
+								return true;
+							}
+						});
 
-					let numAnswers = question.answers.length;
-					// Get an array containing the accepted answer
-					let acceptedAnswer = question.answers.filter( answer => {
-						if (answer.accepted) {
-							return true;
-						}
-					});
+						// Check whether the question has an answer that has been accepted.
+						let hasAccepted = acceptedAnswer.length > 0? true: false;
 
-					// Check whether the question has an answer that has been accepted.
-					let hasAccepted = acceptedAnswer.length > 0? true: false;
-
-					const recentQuestion = `
-							<td><p><a href="${location.href.split('/')[0]}/questions/${question.id}" 
+						let recentQuestion = ` <td><p>
+							<a href="${location.href.split('/')[0]}/questions/${question.id}" 
 								class="question">
 								${question.title}</a></p></td>
 							<td><p class="num-answer ${hasAccepted?'selected': ''}">${numAnswers}</p></td>
-					`;
-
-					for (let i=0; i<table.length; i++){
-						let tr = document.createElement('tr');
-						tr.innerHTML = recentQuestion;
-						table[i].appendChild(tr);
-					}
-				})
-
+						`;
+						// Fills up all the tables with questions
+						for (let i=0; i<table.length; i++){
+							let tr = document.createElement('tr');
+							tr.innerHTML = recentQuestion;
+							table[i].appendChild(tr);
+						}
+					});
 				} else {
-					location.assign(`${location.href.split('/')[0]}/error-404`);
+						let recentQuestion = "No questions yet";
+
+						for (let i=0; i<table.length; i++){
+							let tr = document.createElement('tr');
+							tr.innerHTML = recentQuestion;
+							table[i].appendChild(tr);
+						}
 				}
-			})
-			.catch(error => {
-				console.log(error);
-			});
+			} else {
+				location.assign(`${location.href.split('/')[0]}/error-404`);
+			}
+		})
+		.catch(error => {
+			console.log(error);
+		});
 
 }
