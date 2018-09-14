@@ -24,6 +24,7 @@ const fetchUser = () => {
 				for(let i=0; i<profileName.length; i++){
 					profileName[i].innerHTML = result.data.username;
 				}
+				docTitle.innerHTML = `${result.data.username}'s profile page - StackOverflow-lite`;
 
 				allQuestionNum.innerHTML = userQuestionsArr? userQuestionsArr.length:
 					0 ;

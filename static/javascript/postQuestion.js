@@ -29,6 +29,10 @@ askBtn.addEventListener('click', (event) => {
 			mssgDisp.innerHTML = result.message;
 
 			setTimeout(location.reload(true), 3000); //Reload the page from server
+		} else if(result.statusCode === 401) {
+			mssgDisp.setAttribute('class', 'text-danger');
+			mssgDisp.innerHTML = 'You need to Sign in';
+			logout();
 		} else {
 			mssgDisp.setAttribute('class', 'text-danger');
 			mssgDisp.innerHTML = result.error;

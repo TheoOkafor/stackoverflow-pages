@@ -167,10 +167,18 @@ const showCommentForm = (input) => {
 };
 
 // CLOSE HOME NOTIFICATION
-const closeNotif = () => {
-  document.getElementById('home-notif').style.display = 'none';
-};
+const notifCard = document.getElementById('home-notif');
+if (notifCard) {
+  const closeNotif = () => {
+    notifCard.style.display = 'none';
+    window.localStorage.setItem('closed', true);
+  };
 
+  const closedNotif = window.localStorage.getItem('closed')? true: false;
+  if (closedNotif) {
+    closeNotif();
+  }
+}
 
 // Controls login and username menu display
 const nav = document.querySelector('nav.top-link');
@@ -207,15 +215,24 @@ if (!username || username === 'null') {
 }
 
 // LOGOUT
-const logout = document.getElementById('logout');
-if (logout) {
-  logout.addEventListener('click', (event) => {
-    event.preventDefault();
-    window.localStorage.setItem('username', null);
-    window.localStorage.setItem('userid', null);
-    window.localStorage
-      .setItem('x-access-token', null);
+const logoutBtn = document.getElementById('logout');
 
-    window.location.reload(true);
-  });
+const logout = (event) => {
+  event.preventDefault();
+  window.localStorage.setItem('username', null);
+  window.localStorage.setItem('userid', null);
+  window.localStorage
+    .setItem('x-access-token', null);
+
+  window.location.reload(true);
+};
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', logout);
+}
+
+
+//Removes loader from frontend.
+const removeLoader = () => {
+  document.getElementsByClassName('loader')[0].style.display = 'none';
 }

@@ -22,12 +22,15 @@ const postComment = (id) => {
 		return response.json();
 	})
 	.then( (result) => {
-		console.log(result);
 		if (result.statusCode === 201) {
 			commentMssgDisp.setAttribute('class', 'text-success');
 			commentMssgDisp.innerHTML = result.message;
 
 			setTimeout(location.reload(true), 3000); //Reload the page from server
+		} else if(result.statusCode === 401) {
+			commentMssgDisp.setAttribute('class', 'text-danger');
+			commentMssgDisp.innerHTML = 'You need to Sign in';
+			logout();
 		} else {
 			commentMssgDisp.setAttribute('class', 'text-danger');
 			commentMssgDisp.innerHTML = result.error;

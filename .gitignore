@@ -61,5 +61,6 @@ typings/
 .next
 
 package-lock.json
-# Build dirrectory
+
+# Build directory
 build/

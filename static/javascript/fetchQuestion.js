@@ -22,6 +22,8 @@ if (!username || username === 'null') {
 // Handles the question page and answers API fetch
 const fetchQuestion = () => {
   // addAnswerBtn.removeEventListener("click", updateAnswerExec);
+  
+  setTimeout(removeLoader, 5000);
   addAnswerBtn.addEventListener('click', postAnswer);
   fetch(url)
     .then(response => response.json())

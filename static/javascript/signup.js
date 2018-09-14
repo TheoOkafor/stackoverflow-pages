@@ -1,8 +1,9 @@
 const url = 'https://stackoverflow-by-theo1.herokuapp.com/v1/auth/signup';
-
 let usernameInput = document.querySelector('input[name="username"]');
 let emailInput = document.querySelector('input[name="user-email"]');
 let passwordInput = document.querySelector('input[name="create-password"]');
+let confirmPasswordInput = document.querySelector('input[name="repeat-password"]');
+
 let errorDisp = document.getElementsByClassName('signup-error');
 
 signupBtn.addEventListener('click', (event) => {
@@ -17,7 +18,8 @@ signupBtn.addEventListener('click', (event) => {
 			body: JSON.stringify({
 				"username": usernameInput.value,
 				"email": emailInput.value,
-				"password": passwordInput.value
+				"password": passwordInput.value,
+				"confirmpassword": confirmPasswordInput.value
 			})
 		})
 		.then( (response) => {
