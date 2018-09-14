@@ -11,30 +11,28 @@ const url = `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}
 
 
 if (!username || username === 'null') {
-	dispName.innerHTML = `<h4><a href="" class="inherit">Guest 
+  dispName.innerHTML = `<h4><a href="" class="inherit">Guest 
 	</a><small>(you)</small></h4>`;
 } else {
-	dispName.innerHTML = `<h4><a href="${location.href.split('/')[0]}
+  dispName.innerHTML = `<h4><a href="${location.href.split('/')[0]}
 		/users/${userid}" class="inherit">${username} 
 		</a><small>(you)</small></h4>`;
 }
 
 // Handles the question page and answers API fetch
 const fetchQuestion = () => {
-	//addAnswerBtn.removeEventListener("click", updateAnswerExec);
-	addAnswerBtn.addEventListener("click", postAnswer);
-	fetch (url)
-		.then( response => {
-			return response.json();
-		})
-		.then ( result => {
-			if (result.statusCode === 404){
-				location.assign(`${location.href.split('/')[0]}/error-404`);
-			} else {
-				let question = result.data;
-				let answers = result.data.answers;
+  // addAnswerBtn.removeEventListener("click", updateAnswerExec);
+  addAnswerBtn.addEventListener('click', postAnswer);
+  fetch(url)
+    .then(response => response.json())
+    .then((result) => {
+      if (result.statusCode === 404) {
+        location.assign(`${location.href.split('/')[0]}/error-404`);
+      } else {
+        const question = result.data;
+        const answers = result.data.answers;
 
-				let deletePrompt = `
+        const deletePrompt = `
 					<p>This question will be DELETED permanently 
 						(this CANNOT be reversed)</p>
 					<button class="btn" id="delete-confirm" 
@@ -44,29 +42,29 @@ const fetchQuestion = () => {
 						onclick="cancelDelete()">Cancel</button>
 					`;
 
-				deletePromptInner.innerHTML = deletePrompt;
+        deletePromptInner.innerHTML = deletePrompt;
 
-				// Get an array containing the accepted answer
-				let acceptedAnswer = answers.filter( answer => {
-					if (answer.accepted) {
-						return true;
-					}
-				});
+        // Get an array containing the accepted answer
+        const acceptedAnswer = answers.filter((answer) => {
+          if (answer.accepted) {
+            return true;
+          }
+        });
 
-				// Check whether the question has an answer that has been accepted.
-				let hasAccepted = acceptedAnswer.length > 0? true: false;
+        // Check whether the question has an answer that has been accepted.
+        const hasAccepted = acceptedAnswer.length > 0;
 
-				docTitle.innerHTML = `${question.title} - Stack Overflow-lite`;
-				const questionItem = `
+        docTitle.innerHTML = `${question.title} - Stack Overflow-lite`;
+        const questionItem = `
 					<h1>${question.title}</h1>
 					<p class="question-desc">${question.body}</p>
-				`
-				const authorized = username === question.username;
-				const deleteButton = authorized?
-					`<button class="btn margin-top-20" 
-						onclick= "showDeleteOverlay()">Delete Question</button>`: '';
+				`;
+        const authorized = username === question.username;
+        const deleteButton = authorized
+          ? `<button class="btn margin-top-20" 
+						onclick= "showDeleteOverlay()">Delete Question</button>` : '';
 
-				const questionMore = `
+        const questionMore = `
 						<ul class="list list-unstyled">
 							<li>Time asked: 
 								<b>${new Date(question.timesubmitted).toDateString()}</b></li>
@@ -77,31 +75,30 @@ const fetchQuestion = () => {
 								<b>${question.username}</b></a></li>
 						</ul>
 						${deleteButton}
-				`
-				questionContainer[0].innerHTML = questionItem;
-				questionExtra[0].innerHTML = questionMore;
+				`;
+        questionContainer[0].innerHTML = questionItem;
+        questionExtra[0].innerHTML = questionMore;
 
-				// Arrange Questions to start with the the accepted answer
-				// if the an answer has been accepted.
-				// if (hasAccepted) {
-				// 	answers = answers.slice(0).reverse();
-				// }
-				// Loops through the answer array, adding answer elements to the DOM
-				answers.map( (answer, i) => {
-					let answerContainer = document.createElement('div');
-					let answerCard = document.createElement('div');
-					answerCard.setAttribute('class', 'answer-card');
-					let newClass = authorized && !hasAccepted? '': 'no-show';
-					let addClass = authorized && hasAccepted && answer.accepted? 'show': '';
-					let status = answer.accepted? 'default': '';
-					let comments = answer.comments;
+        // Arrange Questions to start with the the accepted answer
+        // if the an answer has been accepted.
+        // if (hasAccepted) {
+        // 	answers = answers.slice(0).reverse();
+        // }
+        // Loops through the answer array, adding answer elements to the DOM
+        answers.map((answer, i) => {
+          const answerContainer = document.createElement('div');
+          const answerCard = document.createElement('div');
+          answerCard.setAttribute('class', 'answer-card');
+          const newClass = authorized && !hasAccepted ? '' : 'no-show';
+          const addClass = authorized && hasAccepted && answer.accepted ? 'show' : '';
+          const status = answer.accepted ? 'default' : '';
+          const comments = answer.comments;
 
-					let editButton =
-						`<button class="link" id="ansBtn-${answer.id}" 
+          const editButton =						`<button class="link" id="ansBtn-${answer.id}" 
 							onclick="updateAnswer(this.id)">Edit</button>`;
-					let canEditAnswer = username === answer.username;
+          const canEditAnswer = username === answer.username;
 
-					let answerContent = `
+          const answerContent = `
 							<h4 class="person-answer left">
 								<a href="${location.href.split('/')[0]}/users/${answer.userid}" 
 									class="inherit">${answer.username}</a>
@@ -137,37 +134,38 @@ const fetchQuestion = () => {
 								onclick="downvoteAnswer(this.value)">Downvote</button>
 							<button class="link" value="${i}" 
 								onclick="showCommentForm(this.value)">Comment</button>
-							${canEditAnswer? editButton: ''}
+							${canEditAnswer ? editButton : ''}
 						<div>
 					`;
-					answerContainer.innerHTML = answerContent;
+          answerContainer.innerHTML = answerContent;
 
-					// COMMENTS
+          // COMMENTS
 
-						const commentsCarrier = document.createElement('div');
-						commentsCarrier.setAttribute('class', 'comments');
+          const commentsCarrier = document.createElement('div');
+          commentsCarrier.setAttribute('class', 'comments');
 
-						// Maps the comments into the comments display DOM
-						comments.map(comment => {
-							const commentDisp = document.createElement('p');
-							commentDisp.setAttribute('class', 'comment-display');
+          // Maps the comments into the comments display DOM
+          comments.map((comment) => {
+            const commentDisp = document.createElement('p');
+            commentDisp.setAttribute('class', 'comment-display');
 
-							const commentElems = `
+            const commentElems = `
 									<small>${comment.body} <span class="right">
 									<a href="${location.href.split('/')[0]}/users/
-										${comment.userid}" class="inherit"> <b>${comment.username}</b></a>
+										${comment.userid}" class="inherit"> <b>${comment.username}
+										</b></a>
 										(${new Date(comment.timesubmitted).toDateString()})
 									</span><small>
 							`;
-							commentDisp.innerHTML = commentElems;
-							commentsCarrier.appendChild(commentDisp);
-						});
-						// End of comments map function
+            commentDisp.innerHTML = commentElems;
+            commentsCarrier.appendChild(commentDisp);
+          });
+          // End of comments map function
 
-						const commentForm = document.createElement('div');
-						commentForm.setAttribute('class', 'comment-form');
+          const commentForm = document.createElement('div');
+          commentForm.setAttribute('class', 'comment-form');
 
-						const commentFormElem = `
+          const commentFormElem = `
 							<p id="server-message-${answer.id}"></p>
 							<textarea placeholder="Comment on this answer" 
 								id="comment-box-${answer.id}"></textarea>
@@ -175,62 +173,61 @@ const fetchQuestion = () => {
 								onclick="postComment(this.id)">Post Comment</button>
 							<input type="reset" value="Cancel">
 						`;
-						commentForm.innerHTML = commentFormElem;
-						commentsCarrier.appendChild(commentForm);
+          commentForm.innerHTML = commentFormElem;
+          commentsCarrier.appendChild(commentForm);
 
-					answerCard.appendChild(answerContainer);
-					answerCard.appendChild(commentsCarrier);
+          answerCard.appendChild(answerContainer);
+          answerCard.appendChild(commentsCarrier);
 
-					root.appendChild(answerCard);
-					document.getElementsByClassName('loader')[0].style.display = 'none';
-				});
-				//End of Answer.map function.
-			}		
-		})
-		.catch(error => {
-			console.log(error)
-		});
-}
+          root.appendChild(answerCard);
+          document.getElementsByClassName('loader')[0].style.display = 'none';
+        });
+        // End of Answer.map function.
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 const showDeleteOverlay = () => {
-	deletePromptDisp.style.display = 'block';
-}
+  deletePromptDisp.style.display = 'block';
+};
 const cancelDelete = () => {
-	deletePromptDisp.style.display = 'none';
-}
+  deletePromptDisp.style.display = 'none';
+};
 
 // Handles the delete question API fetch
 const deleteQuestion = (questionId) => {
-	const token = window.localStorage.getItem('x-access-token'); 
-	fetch(url, {
-		method: 'delete',
-		headers: new Headers({
-			'Content-Type': 'application/json',
-			'x-access-token': token
-		}),
-	})
-	.then( (response) => {
-		console.log(response);
-		return response.json();
-	})
-	.then( (result) => {
-		console.log(result);
-		let mssgDisp = document.createElement('p');
-		if (result.statusCode === 201) {
-			mssgDisp.innerHTML = result.message;
+  const token = window.localStorage.getItem('x-access-token');
+  fetch(url, {
+    method: 'delete',
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      'x-access-token': token,
+    }),
+  })
+    .then((response) => {
+      console.log(response);
+      return response.json();
+    })
+    .then((result) => {
+      console.log(result);
+      const mssgDisp = document.createElement('p');
+      if (result.statusCode === 201) {
+        mssgDisp.innerHTML = result.message;
 
-			deletePromptInner.innerHTML = "Done";
-			deletePromptInner.appendChild(mssgDisp);
-			setTimeout(location.reload(true), 5000); //Reload the page from server
-		} else {
-			mssgDisp.innerHTML = result.error;
+        deletePromptInner.innerHTML = 'Done';
+        deletePromptInner.appendChild(mssgDisp);
+        setTimeout(location.reload(true), 5000); // Reload the page from server
+      } else {
+        mssgDisp.innerHTML = result.error;
 
-			deletePromptInner.innerHTML = "Done";
-			deletePromptInner.appendChild(mssgDisp);
-		}
-	})
-	.catch(error =>{
-		console.log(error);
-	});
-
-}
+        deletePromptInner.innerHTML = 'Done';
+        deletePromptInner.appendChild(mssgDisp);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

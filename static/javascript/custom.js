@@ -69,79 +69,72 @@ const showAccepted = (input, id) => {
   const accepted = document.getElementsByClassName('accepted');
   const unacceptBtn = document.getElementsByClassName('unaccept');
   const acceptBtns = document.getElementsByClassName('accept');
-  const link = 
-    `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}`;
+  const link = `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}`;
   const token = window.localStorage.getItem('x-access-token');
   console.log(id);
-  fetch (link, {
+  fetch(link, {
     method: 'put',
     headers: new Headers({
       'Content-Type': 'application/json',
-      'x-access-token': token
+      'x-access-token': token,
     }),
     body: JSON.stringify({
-      'value': true 
+      value: true,
     }),
   })
-  .then( (response) => {
-    return response.json();
-  })
-  .then( (result) => {
-    console.log(result);
-    if (result.statusCode === 201) {
-      unacceptBtn[index].style.display = 'inline';
-      accepted[index].style.display = 'inline';
+    .then(response => response.json())
+    .then((result) => {
+      console.log(result);
+      if (result.statusCode === 201) {
+        unacceptBtn[index].style.display = 'inline';
+        accepted[index].style.display = 'inline';
 
-      for (let i = 0; i <= acceptBtns.length - 1; i++) {
-        acceptBtns[i].style.display = 'none';
+        for (let i = 0; i <= acceptBtns.length - 1; i++) {
+          acceptBtns[i].style.display = 'none';
+        }
+        setTimeout(location.reload(true), 3000); // Reload the page from server
       }
-      setTimeout(location.reload(true), 3000); //Reload the page from server
-    }
-  })
-  .catch(error =>{
-    console.log(error);
-  });
-
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
-//UNACCEPT ANSWER
+// UNACCEPT ANSWER
 const showAcceptBtn = (input, id) => {
   const index = parseInt(input);
   const accepted = document.getElementsByClassName('accepted');
   const unacceptBtn = document.getElementsByClassName('unaccept');
   const acceptBtns = document.getElementsByClassName('accept');
-  const link = 
-    `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}`;
+  const link = `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}`;
   const token = window.localStorage.getItem('x-access-token');
 
-  fetch (link, {
+  fetch(link, {
     method: 'put',
     headers: new Headers({
       'Content-Type': 'application/json',
-      'x-access-token': token
+      'x-access-token': token,
     }),
     body: JSON.stringify({
-      'value': false 
+      value: false,
     }),
   })
-  .then( (response) => {
-    return response.json();
-  })
-  .then( (result) => {
-    console.log(result);
-    if (result.statusCode === 201) {
-      unacceptBtn[index].style.display = 'none';
-      accepted[index].style.display = 'none';
+    .then(response => response.json())
+    .then((result) => {
+      console.log(result);
+      if (result.statusCode === 201) {
+        unacceptBtn[index].style.display = 'none';
+        accepted[index].style.display = 'none';
 
-      for (let i = 0; i <= acceptBtns.length - 1; i++) {
-        acceptBtns[i].style.display = 'inline';
+        for (let i = 0; i <= acceptBtns.length - 1; i++) {
+          acceptBtns[i].style.display = 'inline';
+        }
+        setTimeout(location.reload(true), 3000); // Reload the page from server
       }
-      setTimeout(location.reload(true), 3000); //Reload the page from server
-    }
-  })
-  .catch(error =>{
-    console.log(error);
-  });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 // SHOW MORE CONTENT BUTTON
@@ -156,44 +149,65 @@ const showMore = (input) => {
 };
 
 
-//SHOW COMMENT SECTION
+// SHOW COMMENT SECTION
 const showCommentForm = (input) => {
-  //Input is the value of the button which corresponds with the position of the button
-  //in the className DOM array
+  // Input is the value of the button which corresponds with the position
+  // of the button
+  // in the className DOM array
   const index = parseInt(input);
   const commentForm = document.getElementsByClassName('comment-form');
   commentForm[index].style.display = 'block';
+  const textArea = document.querySelectorAll('textarea');
+  if (!username || username === 'null') {
+    for (let i=0; i<textArea.length; i++){
+      textArea[i].placeholder = 'You need to Sign in'
+      textArea[i].disabled = true;
+    }
+  }
 };
 
-//CLOSE HOME NOTIFICATION
+// CLOSE HOME NOTIFICATION
 const closeNotif = () => {
   document.getElementById('home-notif').style.display = 'none';
-}
+};
 
 
-//Controls login and username menu display
+// Controls login and username menu display
 const nav = document.querySelector('nav.top-link');
-let username = window.localStorage.getItem('username');
-let userid = window.localStorage.getItem('userid');
+const username = window.localStorage.getItem('username');
+const userid = window.localStorage.getItem('userid');
+const textArea = document.querySelectorAll('textarea');
+const textInput = document.querySelectorAll('input#title[type="text"]');
 
 if (!username || username === 'null') {
-  let navLinks = `
-    <a href="${window.location.href.split('/')[0]}/signup" class="inherit">Sign up</a> |
-    <a href="${window.location.href.split('/')[0]}/signin" class="inherit"> Sign in</a>`;
+  const navLinks = `
+    <a href="${window.location.href.split('/')[0]}/signup" class="inherit">
+      Sign up</a> |
+    <a href="${window.location.href.split('/')[0]}/signin" class="inherit">
+      Sign in</a>`;
+
   nav.innerHTML = navLinks;
-  
+  for (let i=0; i<textInput.length; i++){
+    textInput[i].placeholder = 'You need to Sign in to ask questions'
+    textInput[i].disabled = true;
+  }
+  for (let i=0; i<textArea.length; i++){
+    textArea[i].placeholder = 'You need to Sign in'
+    textArea[i].disabled = true;
+  }
 } else {
-  let navLinks = `
-    <a href="${window.location.href.split('/')[0]}/" class="inherit">Ask Question</a>
+  const navLinks = `
+    <a href="${window.location.href.split('/')[0]}/" class="inherit">
+      Ask Question</a>
     <a href="${window.location.href.split('/')[0]}/users/${userid}" 
       class="inherit"><b>${username}</b></a>
     <a href="" class="inherit" id="logout">logout</a>`;
-  
+
   nav.innerHTML = navLinks;
 }
 
-//LOGOUT
-let logout = document.getElementById('logout');
+// LOGOUT
+const logout = document.getElementById('logout');
 if (logout) {
   logout.addEventListener('click', (event) => {
     event.preventDefault();

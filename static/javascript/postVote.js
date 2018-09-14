@@ -26,7 +26,10 @@ const upvoteAnswer = (id) => {
       setTimeout(location.reload(true), 3000); //Reload the page from server
     } else {
       voteMssgDisp.setAttribute('class', 'text-danger');
-      voteMssgDisp.innerHTML = result.error;
+      voteMssgDisp.innerHTML = 'You need to sign in first';
+      if(result.statusCode === 401) {
+        window.location.assign(`${location.host}/signin`);
+      }
     }
   })
   .catch(error =>{
@@ -62,10 +65,10 @@ const downvoteAnswer = (id) => {
       setTimeout(location.reload(true), 3000); //Reload the page from server
     } else {
       voteMssgDisp.setAttribute('class', 'text-danger');
-      voteMssgDisp.innerHTML = result.error;
-      // if(result.error == 'could not authenticate the token') {
-      //   location.assign(`${location.host}/signin`);
-      // }
+      voteMssgDisp.innerHTML = 'You need to sign in first';
+      if(result.statusCode === 401) {
+        location.assign(`${location.host}/signin`);
+      }
     }
   })
   .catch(error =>{
