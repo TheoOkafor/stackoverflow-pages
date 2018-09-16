@@ -391,6 +391,7 @@ div.logo p.home {;
 }
 
 #pass-strength {
+	text-rendering: auto;
 	color: #99ffcc;
 	display: none;
 }
@@ -785,4 +786,3 @@ a.active {
 	color: white;
 	background-color: #1a8cff;
 }
-

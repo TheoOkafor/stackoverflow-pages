@@ -2,6 +2,7 @@ let titleInput = document.getElementById('title');
 let description = document.getElementById('description');
 let mssgDisp = document.getElementById('server-message');
 let askBtn = document.getElementById('send-btn');
+let lengthDisp = document.getElementById('server-message');
 
 askBtn.addEventListener('click', (event) => {
 	event.preventDefault();
@@ -42,3 +43,24 @@ askBtn.addEventListener('click', (event) => {
 		console.log(error);
 	});
 });
+
+// Check post character length
+// Title
+const titleCharLength = () => {
+	lengthDisp.innerHTML = `${titleInput.value.length} Characters (title)`;
+	if (titleInput.value.trim().length <= 50) {
+		lengthDisp.setAttribute('class', 'text-success');
+	} else {
+		lengthDisp.setAttribute('class', 'text-danger');
+	}
+}
+
+// Description
+const bodyCharLength = () => {
+	lengthDisp.innerHTML = `${description.value.length} Characters (description)`;
+	if (description.value.trim().length <= 250) {
+		lengthDisp.setAttribute('class', 'text-success');
+	} else {
+		lengthDisp.setAttribute('class', 'text-danger');
+	}
+}
