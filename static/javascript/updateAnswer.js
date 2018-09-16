@@ -2,13 +2,14 @@
 
 const updateAnswer = (id) => {
 	let body = document.getElementById('body');
-	let oldAnswer = document.getElementById(`ans-${id.split('-')[1]}`).innerHTML;
+	let oldAnswer = document.getElementById(`ans-${id.split('-')[1]}`);
 	let mssgDisp = document.getElementById('server-message');
 	let addAnswerBtn = document.getElementById('add-answer');
 	const link = 
 		`https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}`;
 
-	body.value = oldAnswer.trim();
+	body.value = oldAnswer.innerHTML.trim();
+	oldAnswer.style.backgroundColor = '#ffffcc';
 	body.focus() // Brings the input element to focus.
 
 	const updateAnswerExec = (event) => {
@@ -34,7 +35,6 @@ const updateAnswer = (id) => {
 				mssgDisp.setAttribute('class', 'text-success');
 				mssgDisp.innerHTML = result.message;
 
-				setTimeout(location.reload(true), 3000); //Reload the page from server
 			} else {
 				mssgDisp.setAttribute('class', 'text-danger');
 				mssgDisp.innerHTML = result.error;
@@ -42,6 +42,9 @@ const updateAnswer = (id) => {
 		})
 		.catch(error =>{
 			console.log(error);
+		})
+		.finally( done => {
+			setTimeout(location.reload(true), 3000); //Reload the page from server
 		});
 	};
 

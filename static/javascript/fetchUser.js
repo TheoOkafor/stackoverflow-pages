@@ -68,7 +68,7 @@ const fetchUser = () => {
 						}
 					});
 				} else {
-						let recentQuestion = "No questions yet";
+						recentQuestion = "No questions yet";
 
 						for (let i=0; i<table.length; i++){
 							let tr = document.createElement('tr');

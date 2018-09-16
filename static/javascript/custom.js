@@ -166,19 +166,6 @@ const showCommentForm = (input) => {
   }
 };
 
-// CLOSE HOME NOTIFICATION
-const notifCard = document.getElementById('home-notif');
-if (notifCard) {
-  const closeNotif = () => {
-    notifCard.style.display = 'none';
-    window.localStorage.setItem('closed', true);
-  };
-
-  const closedNotif = window.localStorage.getItem('closed')? true: false;
-  if (closedNotif) {
-    closeNotif();
-  }
-}
 
 // Controls login and username menu display
 const nav = document.querySelector('nav.top-link');

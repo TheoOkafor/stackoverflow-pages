@@ -1,6 +1,7 @@
 const root = document.getElementById('root');
 const dispName = document.getElementById('username');
 const url = 'https://stackoverflow-by-theo1.herokuapp.com/v1/questions';
+let pageContent;
 
 if (!username || username === 'null') {
 	dispName.innerHTML = 'Guest';
@@ -15,7 +16,6 @@ const fetchAllQuestions = () => {
 			return response.json();
 		})
 		.then ( result => {
-			let questionSummary = [];
 			//Reverse the array before mapping {Credit: AdamCooper86 - StackOverflow}
 			let data =result.data.slice(0).reverse();
 
@@ -25,26 +25,30 @@ const fetchAllQuestions = () => {
 				let answer = '';
 				let time = '';
 				let username = '';
+				let answersUserid = '';
 				let currAnswers = question.answers;
 				let numAnswers = question.numAnswers || 0;
 
-				for (i in currAnswers){
-					if (currAnswers[i].accepted ){
-						answer = currAnswers[i].body;
-						time = currAnswers[i].timesubmitted;
-						username = currAnswers[i].username;
-					} else if (numAnswers > 0) {
-						let randomIndex = Math.floor(Math.random() * currAnswers.length);
-						answer = currAnswers[randomIndex].body;
-						time = new Date(currAnswers[randomIndex].timesubmitted)
-							.toDateString();
-						username = currAnswers[randomIndex].username;
-					}
-					else {
+				// To display accepted answer or any random answer.
+				let acceptedAnswer = currAnswers.filter( answer => {
+					return answer.accepted;
+				});
+				if (acceptedAnswer.length > 0){
+					answer = acceptedAnswer[0].body;
+					time =  new Date(acceptedAnswer[0].timesubmitted).toDateString();
+					username = acceptedAnswer[0].username;
+					answersUserid = acceptedAnswer[0].userid;
+				} else if (numAnswers > 0) {
+					let randomIndex = Math.floor(Math.random() * currAnswers.length);
+					answer = currAnswers[randomIndex].body;
+					time = new Date(currAnswers[randomIndex].timesubmitted)
+						.toDateString();
+					username = currAnswers[randomIndex].username;
+					answersUserid = currAnswers[randomIndex].userid;
+				} else {
 						answer = 'No answers yet';
-						time = null;
-						username = null;
-					}
+						time = '';
+						username = '';
 				}
 
 				let card = document.createElement('div');
@@ -55,7 +59,7 @@ const fetchAllQuestions = () => {
 						class="question">${question.title}</a></h3>
 					<div>
 						<h5 class="person-answer"><a class="inherit"
-						href="${location.href.split('/')[0]}/users/${question.userid}">
+						href="${location.href.split('/')[0]}/users/${answersUserid}">
 						${username}</a><br>
 							<small>Answered: 	<span>${time}</span></small>
 						</h5>
@@ -65,14 +69,31 @@ const fetchAllQuestions = () => {
 					</p>
 					<h6>Answers: <span>${numAnswers}</span></h6>
 				`
+
 				card.innerHTML = demo;
 				root.appendChild(card);
-				document.getElementsByClassName('loader')[0].style.display = 'none';		
 			});
-
 		})
 		.catch(error => {
 			console.log(error);
+		})
+		.finally(done => {
+			document.getElementsByClassName('loader')[0].style.display = 'none';
 		});
 
 };
+
+// SCROLL LOADING (INFINITE LOAD) IMPLEMENTATION
+
+
+// CLOSE HOME NOTIFICATION
+const notifCard = document.getElementById('home-notif');
+const closeNotif = () => {
+  notifCard.style.display = 'none';
+  window.localStorage.setItem('closed', true);
+};
+
+const closedNotif = window.localStorage.getItem('closed')? true: false;
+if (closedNotif) {
+  closeNotif();
+}

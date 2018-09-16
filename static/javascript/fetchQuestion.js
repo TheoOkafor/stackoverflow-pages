@@ -182,13 +182,15 @@ const fetchQuestion = () => {
           answerCard.appendChild(commentsCarrier);
 
           root.appendChild(answerCard);
-          document.getElementsByClassName('loader')[0].style.display = 'none';
         });
         // End of Answer.map function.
       }
     })
     .catch((error) => {
       console.log(error);
+    })
+    .finally(done => {
+      document.getElementsByClassName('loader')[0].style.display = 'none';
     });
 };
 
@@ -210,7 +212,6 @@ const deleteQuestion = (questionId) => {
     }),
   })
     .then((response) => {
-      console.log(response);
       return response.json();
     })
     .then((result) => {
@@ -221,7 +222,7 @@ const deleteQuestion = (questionId) => {
 
         deletePromptInner.innerHTML = 'Done';
         deletePromptInner.appendChild(mssgDisp);
-        setTimeout(location.reload(true), 5000); // Reload the page from server
+        setTimeout(location.reload(true), 3000); // Reload the page from server
       } else {
         mssgDisp.innerHTML = result.error;
 
