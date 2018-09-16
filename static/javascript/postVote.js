@@ -26,14 +26,18 @@ const upvoteAnswer = (id) => {
       setTimeout(location.reload(true), 3000); //Reload the page from server
     } else {
       voteMssgDisp.setAttribute('class', 'text-danger');
-      voteMssgDisp.innerHTML = 'You need to sign in first';
+      voteMssgDisp.innerHTML = result.error;
       if(result.statusCode === 401) {
-        window.location.assign(`${location.host}/signin`);
+        voteMssgDisp.setAttribute('class', 'text-danger');
+        voteMssgDisp.innerHTML = 'You need to sign in first';
       }
     }
   })
   .catch(error =>{
     console.log(error);
+  })
+  .finally(done => {
+    window.location.assign(`${location.host}/signin`);
   });
 
 };
