@@ -168,7 +168,10 @@ const fetchQuestion = () => {
           commentForm.setAttribute('class', 'comment-form');
 
           const commentFormElem = `
-							<p id="server-message-${answer.id}"></p>
+							<div id="server-message-${answer.id}">
+                <div class="loader-xs" id="comment-${answer.id}-loader">
+                </div>
+              </div>
 							<textarea placeholder="Comment on this answer" 
 								id="comment-box-${answer.id}"></textarea>
 							<button class="btn primary" id="comment-${answer.id}"
@@ -234,3 +237,11 @@ const deleteQuestion = (questionId) => {
       console.log(error);
     });
 };
+
+const activateLoaderXs = (id) => {
+  let mssgDisp = document.getElementById('server-message');
+  let loaderXs = document.getElementById(`${id}-loader`);
+
+  loaderXs.style.display = 'inline-block';
+
+}

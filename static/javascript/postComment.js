@@ -6,7 +6,7 @@ const postComment = (id) => {
 	const link = `
 		https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}/comments`;
 	const token = window.localStorage.getItem('x-access-token');
-
+	activateLoaderXs(id);
 	fetch (link, {
 		method: 'post',
 		headers: new Headers({
@@ -40,3 +40,5 @@ const postComment = (id) => {
 		console.log(error);
 	});
 };
+
+
