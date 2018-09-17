@@ -3,9 +3,11 @@
 const postComment = (id) => {
 	let commentBody = document.getElementById(`comment-box-${id.split('-')[1]}`);
 	let commentMssgDisp = document.getElementById(`server-message-${id.split('-')[1]}`);
+
 	const link = `
 		https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}/comments`;
 	const token = window.localStorage.getItem('x-access-token');
+	// Activate the extra small loader
 	activateLoaderXs(id);
 	fetch (link, {
 		method: 'post',
@@ -22,6 +24,7 @@ const postComment = (id) => {
 		return response.json();
 	})
 	.then( (result) => {
+		commentMssgDisp.nextElementSibling.style.display = 'none';
 		if (result.statusCode === 201) {
 			commentMssgDisp.setAttribute('class', 'text-success');
 			commentMssgDisp.innerHTML = result.message;

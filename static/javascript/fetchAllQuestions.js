@@ -97,3 +97,10 @@ const closedNotif = window.localStorage.getItem('closed')? true: false;
 if (closedNotif) {
   closeNotif();
 }
+
+const activateLoaderXs = () => {
+  let mssgDisp = document.getElementById('server-message');
+  let loaderXs = document.getElementById(`post-question-loader`);
+
+  loaderXs.style.display = 'inline-block';
+}

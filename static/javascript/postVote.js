@@ -1,10 +1,12 @@
 // UPVOTE ANSWER
 const upvoteAnswer = (id) => {
   // const voteDisp = document.getElementsByClassName('vote-display');
-  const voteMssgDisp = document.getElementById(`vote-mssg-${id}`);
+  const voteMssgDisp = document.getElementById(`vote-mssg-${id.split('-')[1]}`);
   const link = 
-    `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id}`;
+    `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}`;
   const token = window.localStorage.getItem('x-access-token');
+  // Activate the extra small loader
+  activateLoaderXs(id);
 
   fetch (link, {
     method: 'post',
@@ -20,6 +22,7 @@ const upvoteAnswer = (id) => {
     return response.json();
   })
   .then( (result) => {
+    voteMssgDisp.nextElementSibling.style.display = 'none';
     if (result.statusCode === 201) {
       voteMssgDisp.setAttribute('class', 'text-success');
       voteMssgDisp.innerHTML = result.message;
@@ -41,10 +44,12 @@ const upvoteAnswer = (id) => {
 
 // DOWNVOTE ANSWER
 const downvoteAnswer = (id) => {
-  const voteMssgDisp = document.getElementById(`vote-mssg-${id}`);
+  const voteMssgDisp = document.getElementById(`vote-mssg-${id.split('-')[1]}`);
   const link = 
-  `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id}`;
+  `https://stackoverflow-by-theo1.herokuapp.com/v1${location.pathname}/answers/${id.split('-')[1]}`;
   const token = window.localStorage.getItem('x-access-token');
+  // Activate the extra small loader
+  activateLoaderXs(id);
 
   fetch (link, {
     method: 'post',
@@ -60,6 +65,7 @@ const downvoteAnswer = (id) => {
     return response.json();
   })
   .then( (result) => {
+    voteMssgDisp.nextElementSibling.style.display = 'none';
     if (result.statusCode === 201) {
       voteMssgDisp.setAttribute('class', 'text-success');
       voteMssgDisp.innerHTML = result.message;

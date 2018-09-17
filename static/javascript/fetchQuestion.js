@@ -126,14 +126,17 @@ const fetchQuestion = () => {
 							${answer.body}
 						</p>
 						<div class="answer-options">
-							<p id="vote-mssg-${answer.id}"></p>
+              <div class="message-display">
+  							<p id="vote-mssg-${answer.id}"></p>
+                <div class="loader-xs" id="vote-${answer.id}-loader"></div>
+              </div>
 							<span class="upvote-display">${answer.upvotes}</span>
-							<button class="btn primary-o" value="${answer.id}" 
-								onclick="upvoteAnswer(this.value)">Upvote</button>
+							<button class="btn primary-o" id="vote-${answer.id}-up" 
+								onclick="upvoteAnswer(this.id)">Upvote</button>
 
 							<span class="vote-display">${answer.downvotes}</span>
-							<button class="link gray" value="${answer.id}" 
-								onclick="downvoteAnswer(this.value)">Downvote</button>
+							<button class="link gray" id="vote-${answer.id}-down" 
+								onclick="downvoteAnswer(this.id)">Downvote</button>
 							<button class="link" value="${i}" 
 								onclick="showCommentForm(this.value)">Comment</button>
 							${canEditAnswer ? editButton : ''}
@@ -168,9 +171,9 @@ const fetchQuestion = () => {
           commentForm.setAttribute('class', 'comment-form');
 
           const commentFormElem = `
-							<div id="server-message-${answer.id}">
-                <div class="loader-xs" id="comment-${answer.id}-loader">
-                </div>
+							<div class="message-display">
+                <p id="server-message-${answer.id}"></p>
+                <div class="loader-xs" id="comment-${answer.id}-loader"></div>
               </div>
 							<textarea placeholder="Comment on this answer" 
 								id="comment-box-${answer.id}"></textarea>
@@ -240,8 +243,7 @@ const deleteQuestion = (questionId) => {
 
 const activateLoaderXs = (id) => {
   let mssgDisp = document.getElementById('server-message');
-  let loaderXs = document.getElementById(`${id}-loader`);
+  let loaderXs = document.getElementById(`${id.split('-').slice(0, 2).join('-')}-loader`);
 
   loaderXs.style.display = 'inline-block';
-
 }

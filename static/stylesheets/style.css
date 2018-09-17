@@ -680,6 +680,10 @@ nav a, .sitemap a {
 	padding-top: 10px;
 }
 
+.answer-options div {
+	padding-bottom: 10px;
+}
+
 .answer-options > button {
 	margin-left: 10px;
 }
@@ -795,4 +799,10 @@ div.pagination a:hover:not(.active) {
 a.active {
 	color: white;
 	background-color: #1a8cff;
+}
+
+.message-display p {
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
 }

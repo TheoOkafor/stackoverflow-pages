@@ -22,7 +22,7 @@ const postAnswer = (event) => {
 		return response.json();
 	})
 	.then( (result) => {
-		console.log(result);
+		mssgDisp.nextElementSibling.style.display = 'none';
 		if (result.statusCode === 201) {
 			mssgDisp.setAttribute('class', 'text-success');
 			mssgDisp.innerHTML = result.message;

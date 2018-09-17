@@ -35,7 +35,10 @@
 
 				<div class="card margin-top-15">
 					<h5><span  id="username"> </span> <small>(you)</small></h5>
-					<p id="server-message"></p>
+					<div class="message-display">
+						<p id="server-message"></p>
+						<div class="loader-xs" id="post-question-loader"></div>
+					</div>
 					<div class="question-form">
 						<input type="text" name="question-input" placeholder="What is your question?" id="title" oninput="titleCharLength()">
 						<textarea placeholder="Description" id="description" oninput="bodyCharLength()"></textarea>

@@ -7,7 +7,9 @@ let lengthDisp = document.getElementById('server-message');
 askBtn.addEventListener('click', (event) => {
 	event.preventDefault();
 	const token = window.localStorage.getItem('x-access-token');
-	console.log(token);
+	// Activate the extra small loader
+	activateLoaderXs();
+
 	fetch (url, {
 		method: 'post',
 		headers: new Headers({
@@ -24,7 +26,7 @@ askBtn.addEventListener('click', (event) => {
 		return response.json();
 	})
 	.then( (result) => {
-		console.log(result);
+		mssgDisp.nextElementSibling.style.display = 'none';
 		if (result.statusCode === 201) {
 			mssgDisp.setAttribute('class', 'text-success');
 			mssgDisp.innerHTML = result.message;
