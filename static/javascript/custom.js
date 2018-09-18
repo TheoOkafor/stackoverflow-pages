@@ -177,10 +177,14 @@ const textInput = document.querySelectorAll('input#title[type="text"]');
 if (!username || username === 'null') {
   const navLinks = `
     <ul class="list list-unstyled">
-      <a href="${window.location.href.split('/')[0]}/signup" class="inherit">
-        Sign up</a> |
-      <a href="${window.location.href.split('/')[0]}/signin" class="inherit">
+      <li>
+        <a href="${window.location.href.split('/')[0]}/signup" class="inherit">
+        Sign up</a>
+      </li>
+      <li>
+        <a href="${window.location.href.split('/')[0]}/signin" class="inherit">
         Sign in</a>
+      </li>
     </ul>`;
 
   nav.innerHTML = navLinks;

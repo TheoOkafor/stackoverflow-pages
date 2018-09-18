@@ -250,6 +250,7 @@ button.toggle-nav {
 		color: #fff;
 		background-color: #004d99;
 		margin-top: 17px;
+		border-top: none;
 	}
 
 	.top-link ul li {
