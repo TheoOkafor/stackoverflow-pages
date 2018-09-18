@@ -176,10 +176,12 @@ const textInput = document.querySelectorAll('input#title[type="text"]');
 
 if (!username || username === 'null') {
   const navLinks = `
-    <a href="${window.location.href.split('/')[0]}/signup" class="inherit">
-      Sign up</a> |
-    <a href="${window.location.href.split('/')[0]}/signin" class="inherit">
-      Sign in</a>`;
+    <ul class="list list-unstyled">
+      <a href="${window.location.href.split('/')[0]}/signup" class="inherit">
+        Sign up</a> |
+      <a href="${window.location.href.split('/')[0]}/signin" class="inherit">
+        Sign in</a>
+    </ul>`;
 
   nav.innerHTML = navLinks;
   for (let i=0; i<textInput.length; i++){
@@ -192,11 +194,23 @@ if (!username || username === 'null') {
   }
 } else {
   const navLinks = `
-    <a href="${window.location.href.split('/')[0]}/" class="inherit">
-      Ask Question</a>
-    <a href="${window.location.href.split('/')[0]}/users/${userid}" 
-      class="inherit"><b>${username}</b></a>
-    <a href="" class="inherit" id="logout">logout</a>`;
+    <ul class="list list-unstyled">
+      <!-- <li class="search-container">
+        <input type="search" name="search" placeholder="Question's title">
+        <button class="btn primary" id="search-btn">Search</button>
+      </li> -->
+      <li>
+        <a href="${window.location.href.split('/')[0]}/" class="inherit">
+    Ask Question</a>
+      </li>
+      <li>
+        <a href="${window.location.href.split('/')[0]}/users/${userid}" 
+    class="inherit"><b>${username}</b></a>
+      </li>
+      <li>
+        <a href="" class="inherit" id="logout">logout</a>
+      </li>
+    </ul>`;
 
   nav.innerHTML = navLinks;
 }
@@ -222,4 +236,15 @@ if (logoutBtn) {
 //Removes loader from frontend.
 const removeLoader = () => {
   document.getElementsByClassName('loader')[0].style.display = 'none';
+}
+
+// Top navigation Toggle function
+const showNav = () => {
+  const navItem = document.getElementsByClassName('top-link');
+  if (navItem[0].style.display === 'none') {
+    navItem[0].style.display = 'block';
+  } else {
+    navItem[0].style.display = 'none';
+  }
+  
 }
