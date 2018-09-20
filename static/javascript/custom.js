@@ -199,10 +199,15 @@ if (!username || username === 'null') {
 } else {
   const navLinks = `
     <ul class="list list-unstyled">
-      <!-- <li class="search-container">
-        <input type="search" name="search" placeholder="Question's title">
-        <button class="btn primary" id="search-btn">Search</button>
-      </li> -->
+      <li class="search-container">
+        <form>
+          <input type="search" name="search" placeholder="Which question?">
+          <button class="btn primary" id="search-btn" 
+          onclick="fetchSearch(); return false">
+            Search
+          </button>
+        </form>
+      </li>
       <li>
         <a href="${window.location.href.split('/')[0]}/" class="inherit">
     Ask Question</a>
