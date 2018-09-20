@@ -1,7 +1,7 @@
 const fetchSearch = (event) => {
 	// event.preventDefault();
 
-	let searchParams = document.querySelector('input[name="search"]').value;
+	let searchParams = document.querySelector('input[name="search"]').value.trim();
 	searchParams =searchParams.split(' ').join('+');
 	const mainContainer = document.getElementById('main-container');
 	let link = `https://stackoverflow-by-theo1.herokuapp.com/v1/search?search=${searchParams}`;
