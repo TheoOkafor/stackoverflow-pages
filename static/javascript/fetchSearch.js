@@ -11,7 +11,6 @@ const fetchSearch = (event) => {
 			return response.json();
 		})
 		.then ( result => {
-			console.log(result);
 			let container = document.createElement('div');
 			let titleElem = document.createElement('h2');
 			titleElem.innerHTML = 'Search Results';
